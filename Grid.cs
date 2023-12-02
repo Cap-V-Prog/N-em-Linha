@@ -15,12 +15,12 @@ namespace NemLinha_Projeto
             // Generate and display the grid
             if (_grid is null)
             {
-                GenerateGridBoundries(rows,columns);
-                this._grid=GenerateGrid(rows, columns,gameGrid);
+                GenerateGridBoundries(rows,3);
+                this._grid = GenerateGrid(rows, columns,gameGrid,3);
             }
             else
             {
-                this._grid = GenerateGrid(rows, columns,gameGrid);
+                this._grid = GenerateGrid(rows, columns,gameGrid,3);
             }
             Console.WriteLine(_grid);
         }
@@ -30,7 +30,7 @@ namespace NemLinha_Projeto
             string horizontalLine = new string('─', cellWidth);
             
             //Top Line of Grid
-            _topLine += $"\u250c";
+            _topLine += "\u250c";
             for (int c = 0; c < columns; c++)
             {
                 _topLine += horizontalLine;
@@ -77,13 +77,11 @@ namespace NemLinha_Projeto
             }
         }
 
-        public string GenerateGrid(int rows, int columns, int[,] gameGrid,int cellWidth=5)
+        public string GenerateGrid(int rows, int columns, int[,] gameGrid,int cellHeight=5)
         {
             string grid = "";
             
-            string verticalLine = new string(' ', cellWidth);
-
-            grid += _topLine;
+            string verticalLine = new string(' ', cellHeight);
             
             grid+=this.Lines(verticalLine, rows, columns,gameGrid);
             
@@ -93,6 +91,7 @@ namespace NemLinha_Projeto
         private string Lines(string verticalLine,int rows,int columns,int[,] gameGrid=null)
         {
             string lineRows="";
+            lineRows += _topLine;
             for (int r = 0; r < rows; r++)
             {
                 for (int c = 0; c < columns; c++)
@@ -101,10 +100,10 @@ namespace NemLinha_Projeto
                         switch (gameGrid[r, c])
                         {
                             case 1:
-                                lineRows += "│  O  ";
+                                lineRows += "│ O ";
                                 break;
                             case 2:
-                                lineRows += "│  X  ";
+                                lineRows += "│ X ";
                                 break;
                             default:
                                 lineRows += "│" + verticalLine;
