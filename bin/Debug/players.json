@@ -1,0 +1,12 @@
+[
+  {
+    "Name": "Player1",
+    "GamesPlayed": 20,
+    "Victories": 10
+  },
+  {
+    "Name": "Player2",
+    "GamesPlayed": 30,
+    "Victories": 16
+  }
+]

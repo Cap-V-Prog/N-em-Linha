@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace NemLinha_Projeto
@@ -8,6 +9,7 @@ namespace NemLinha_Projeto
         static void Main()
         {
             Menu menu = new Menu();
+            
             /*
             int[,] gameGrid = { 
                 {1,2,3,4,1}, 
@@ -32,8 +34,50 @@ namespace NemLinha_Projeto
             else
             {
                 Console.Clear();
-                Console.WriteLine($"You selected: {menuOptions[selectedIndex]}");
-                Console.ReadKey();
+                switch (selectedIndex)
+                {
+                    case 1:
+                        PlayerManager.ClearAllPlayers();
+                        break;
+                    case 2:
+                        string addPlayerResult1 = PlayerManager.AddPlayer("Player1");
+                        string addPlayerResult2 = PlayerManager.AddPlayer("Player2");
+
+                        Console.WriteLine(addPlayerResult1);
+                        Console.WriteLine(addPlayerResult2);
+
+                        // Example: Update player's statistics using the method in the PlayerManager class
+                        string updateResult1 = PlayerManager.UpdatePlayerStats("Player1", player =>
+                        {
+                            player.GamesPlayed += 10;
+                            player.Victories += 5;
+                        });
+
+                        string updateResult2 = PlayerManager.UpdatePlayerStats("Player2", player =>
+                        {
+                            player.GamesPlayed += 15;
+                            player.Victories += 8;
+                        });
+
+                        Console.WriteLine(updateResult1);
+                        Console.WriteLine(updateResult2);
+
+                        // Example: Display updated player information
+                        List<Player> players = PlayerManager.LoadPlayers();
+                        foreach (var player in players)
+                        {
+                            player.DisplayPlayerInfo();
+                            Console.WriteLine();
+                        }
+
+                        Console.ReadKey();
+                        break;
+                    default:
+                        Console.WriteLine($"You selected: {menuOptions[selectedIndex]}");
+                        Console.ReadKey();
+                        break;
+                        
+                }
             }
         }
 

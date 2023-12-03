@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 
@@ -15,7 +16,14 @@ namespace NemLinha_Projeto
             File.WriteAllText(FilePath, json);
         }
 
-        // Method to load player data from a JSON file
+        // Method to load players' data from a JSON file for a specific player
+        public static Player LoadPlayer(string playerName)
+        {
+            List<Player> players = LoadPlayers();
+            return players.Find(player => player.Name == playerName);
+        }
+
+        // Method to load players' data from a JSON file
         public static List<Player> LoadPlayers()
         {
             if (File.Exists(FilePath))
@@ -27,6 +35,58 @@ namespace NemLinha_Projeto
             {
                 return new List<Player>();
             }
+        }
+        
+        public static string AddPlayer(string playerName)
+        {
+            List<Player> allPlayers = LoadPlayers();
+
+            // Check if the player with the given username already exists
+            if (allPlayers.Exists(player => player.Name == playerName))
+            {
+                return $"Player with the username '{playerName}' already exists.";
+            }
+
+            // If the username doesn't exist, add the new player
+            Player newPlayer = new Player(playerName, 0, 0);
+            allPlayers.Add(newPlayer);
+            SavePlayers(allPlayers);
+
+            return $"Player '{playerName}' added successfully.";
+        }
+        
+        public static string UpdatePlayerStats(string playerName, Action<Player> updateAction)
+        {
+            List<Player> allPlayers = LoadPlayers();
+            Player currentPlayer = allPlayers.Find(player => player.Name == playerName);
+
+            if (currentPlayer != null)
+            {
+                updateAction(currentPlayer);
+
+                int index = allPlayers.FindIndex(player => player.Name == playerName);
+                if (index != -1)
+                {
+                    allPlayers[index] = currentPlayer;
+                    SavePlayers(allPlayers);
+                    return $"Player '{playerName}' statistics updated successfully.";
+                }
+                else
+                {
+                    return $"Player '{playerName}' not found in the list.";
+                }
+            }
+            else
+            {
+                return $"Player '{playerName}' not found.";
+            }
+        }
+        
+        public static void ClearAllPlayers()
+        {
+            // Clear all players by overwriting the file with an empty list
+            SavePlayers(new List<Player>());
+            Console.WriteLine("All players cleared.");
         }
     }
 }
