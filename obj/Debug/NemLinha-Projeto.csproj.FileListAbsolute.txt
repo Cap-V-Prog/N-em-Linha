@@ -5,3 +5,6 @@ C:\Users\mario\RiderProjects\NemLinha-Projeto\NemLinha-Projeto\obj\Debug\NemLinh
 C:\Users\mario\RiderProjects\NemLinha-Projeto\NemLinha-Projeto\obj\Debug\NemLinha-Projeto.csproj.CoreCompileInputs.cache
 C:\Users\mario\RiderProjects\NemLinha-Projeto\NemLinha-Projeto\obj\Debug\NemLinha_Projeto.exe
 C:\Users\mario\RiderProjects\NemLinha-Projeto\NemLinha-Projeto\obj\Debug\NemLinha_Projeto.pdb
+C:\Users\mario\RiderProjects\NemLinha-Projeto\NemLinha-Projeto\bin\Debug\Newtonsoft.Json.dll
+C:\Users\mario\RiderProjects\NemLinha-Projeto\NemLinha-Projeto\bin\Debug\Newtonsoft.Json.xml
+C:\Users\mario\RiderProjects\NemLinha-Projeto\NemLinha-Projeto\obj\Debug\NemLinha-Projeto.csproj.CopyComplete
