@@ -8,3 +8,12 @@ C:\Users\mario\RiderProjects\NemLinha-Projeto\NemLinha-Projeto\obj\Debug\NemLinh
 C:\Users\mario\RiderProjects\NemLinha-Projeto\NemLinha-Projeto\bin\Debug\Newtonsoft.Json.dll
 C:\Users\mario\RiderProjects\NemLinha-Projeto\NemLinha-Projeto\bin\Debug\Newtonsoft.Json.xml
 C:\Users\mario\RiderProjects\NemLinha-Projeto\NemLinha-Projeto\obj\Debug\NemLinha-Projeto.csproj.CopyComplete
+C:\Users\mario\Desktop\IP\N-em-Linha\bin\Debug\NemLinha_Projeto.exe
+C:\Users\mario\Desktop\IP\N-em-Linha\bin\Debug\NemLinha_Projeto.pdb
+C:\Users\mario\Desktop\IP\N-em-Linha\bin\Debug\Newtonsoft.Json.xml
+C:\Users\mario\Desktop\IP\N-em-Linha\obj\Debug\NemLinha-Projeto.csproj.AssemblyReference.cache
+C:\Users\mario\Desktop\IP\N-em-Linha\obj\Debug\NemLinha-Projeto.csproj.SuggestedBindingRedirects.cache
+C:\Users\mario\Desktop\IP\N-em-Linha\obj\Debug\NemLinha-Projeto.csproj.CoreCompileInputs.cache
+C:\Users\mario\Desktop\IP\N-em-Linha\obj\Debug\NemLinha-Projeto.csproj.CopyComplete
+C:\Users\mario\Desktop\IP\N-em-Linha\obj\Debug\NemLinha_Projeto.exe
+C:\Users\mario\Desktop\IP\N-em-Linha\obj\Debug\NemLinha_Projeto.pdb

@@ -1,12 +1,12 @@
 [
   {
     "Name": "Player1",
-    "GamesPlayed": 20,
-    "Victories": 10
+    "GamesPlayed": 10,
+    "Victories": 5
   },
   {
     "Name": "Player2",
-    "GamesPlayed": 30,
-    "Victories": 16
+    "GamesPlayed": 15,
+    "Victories": 8
   }
 ]

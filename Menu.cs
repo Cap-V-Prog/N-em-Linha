@@ -44,9 +44,11 @@ namespace NemLinha_Projeto
 
                 switch (key.Key)
                 {
+                    case ConsoleKey.W:
                     case ConsoleKey.UpArrow:
                         selectedIndex = (selectedIndex - 1 + options.Length) % options.Length;
                         break;
+                    case ConsoleKey.S:
                     case ConsoleKey.DownArrow:
                         selectedIndex = (selectedIndex + 1) % options.Length;
                         break;

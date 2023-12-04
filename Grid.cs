@@ -15,7 +15,7 @@ namespace NemLinha_Projeto
             // Generate and display the grid
             if (_grid is null)
             {
-                GenerateGridBoundries(rows,3);
+                GenerateGridBoundries(columns,3);
                 this._grid = GenerateGrid(rows, columns,gameGrid,3);
             }
             else
@@ -106,7 +106,7 @@ namespace NemLinha_Projeto
                                 lineRows += "│ X ";
                                 break;
                             default:
-                                lineRows += "│" + verticalLine;
+                                lineRows += $"│{verticalLine}";
                                 break;
                         }
                 }

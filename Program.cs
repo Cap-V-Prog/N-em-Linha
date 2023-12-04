@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace NemLinha_Projeto
 {
@@ -9,18 +8,6 @@ namespace NemLinha_Projeto
         static void Main()
         {
             Menu menu = new Menu();
-            
-            /*
-            int[,] gameGrid = { 
-                {1,2,3,4,1}, 
-                {6,7,2,1,0}, 
-                {1,2,1,2,5}, 
-                {6,1,8,9,0}, 
-                {1,2,3,4,5} };
-            Grid uIgrid = new Grid();
-            Console.Clear();
-            uIgrid.DisplayGrid(5,5,gameGrid);
-            Thread.Sleep(2500);*/
             
             Console.CursorVisible = false;
             
@@ -36,6 +23,23 @@ namespace NemLinha_Projeto
                 Console.Clear();
                 switch (selectedIndex)
                 {
+                    case 0:
+                        int[,] gameGrid = { 
+                            {1,2,3,4,1}, 
+                            {6,7,2,1,0},
+                            {6,1,8,9,0},
+                            {6,1,8,9,0},
+                            {1,2,1,2,5}, 
+                            {6,1,8,9,0},
+                            {6,1,8,9,0},
+                            {6,1,8,9,0},
+                            {6,1,8,9,0},
+                            {1,2,3,4,5} };
+                        Grid uIgrid = new Grid();
+                        Console.Clear();
+                        uIgrid.DisplayGrid(10,5,gameGrid);
+                        Console.ReadKey();
+                        break;
                     case 1:
                         PlayerManager.ClearAllPlayers();
                         break;
