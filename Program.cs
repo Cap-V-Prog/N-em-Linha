@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace NemLinha_Projeto
 {
@@ -44,6 +45,9 @@ namespace NemLinha_Projeto
                         PlayerManager.ClearAllPlayers();
                         break;
                     case 2:
+                        DrawPlayerMenu();
+                        
+                        
                         string addPlayerResult1 = PlayerManager.AddPlayer("Player1");
                         string addPlayerResult2 = PlayerManager.AddPlayer("Player2");
 
@@ -77,12 +81,79 @@ namespace NemLinha_Projeto
                         Console.ReadKey();
                         break;
                     default:
-                        Console.WriteLine($"You selected: {menuOptions[selectedIndex]}");
+                        Console.WriteLine($"ERRO: {menuOptions[selectedIndex]}");
                         Console.ReadKey();
                         break;
                         
                 }
             }
+        }
+
+        static void DrawPlayerMenu()
+        {
+            Menu menu = new Menu();
+            string[] pMenuOptions = { "Novo Jogador", "Listar todos","Apagar todos", "Voltar" };
+            int pSelectedIndex = menu.ShowMenu(pMenuOptions,"Jogadores",0);
+
+            if (pSelectedIndex == pMenuOptions.Length - 1)
+            {
+                Main();
+            }
+
+            switch (pSelectedIndex)
+            {
+                case 0:
+                    AddPlayerForm();
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                default:
+                    Console.WriteLine($"ERRO: {pMenuOptions[pSelectedIndex]}");
+                    break;
+            }
+        }
+
+        static void AddPlayerForm()
+        {
+            Console.Clear();
+            string username = GetValidUsername();
+            Console.WriteLine($"Nome: {username}");
+            Console.ReadLine();
+        }
+        
+        static string GetValidUsername()
+        {
+            string input;
+
+            do
+            {
+                Console.Write("Digite o username: ");
+                input = Console.ReadLine();
+
+            } while (!IsValidInput(input));
+
+            // Extrair o nome de usuário do input
+            string username = input.Substring("Nome:".Length).Trim();
+
+            return username;
+        }
+
+        static bool IsValidInput(string input)
+        {
+            string[] parts = input.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            return parts.Length == 2 && parts[0].Equals("Nome:", StringComparison.OrdinalIgnoreCase) && IsValidUsername(parts[1]);
+        }
+
+        static bool IsValidUsername(string username)
+        {
+            return !string.IsNullOrEmpty(username) &&
+                   username.Length <= 21 &&
+                   System.Text.RegularExpressions.Regex.IsMatch(username, "^[a-zA-Z0-9]+$");
         }
 
         static void CloseProgram()
