@@ -1,12 +1,27 @@
 [
   {
     "Name": "Player1",
-    "GamesPlayed": 40,
-    "Victories": 20
+    "GamesPlayed": 120,
+    "Victories": 60
   },
   {
     "Name": "Player2",
-    "GamesPlayed": 60,
-    "Victories": 32
+    "GamesPlayed": 180,
+    "Victories": 96
+  },
+  {
+    "Name": "Primo",
+    "GamesPlayed": 0,
+    "Victories": 0
+  },
+  {
+    "Name": "Pedro",
+    "GamesPlayed": 0,
+    "Victories": 0
+  },
+  {
+    "Name": "paulo",
+    "GamesPlayed": 0,
+    "Victories": 0
   }
 ]

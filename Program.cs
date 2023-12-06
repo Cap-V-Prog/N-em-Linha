@@ -46,13 +46,6 @@ namespace NemLinha_Projeto
                         break;
                     case 2:
                         DrawPlayerMenu();
-                        
-                        
-                        string addPlayerResult1 = PlayerManager.AddPlayer("Player1");
-                        string addPlayerResult2 = PlayerManager.AddPlayer("Player2");
-
-                        Console.WriteLine(addPlayerResult1);
-                        Console.WriteLine(addPlayerResult2);
 
                         // Example: Update player's statistics using the method in the PlayerManager class
                         string updateResult1 = PlayerManager.UpdatePlayerStats("Player1", player =>
@@ -121,39 +114,53 @@ namespace NemLinha_Projeto
         {
             Console.Clear();
             string username = GetValidUsername();
-            Console.WriteLine($"Nome: {username}");
+            bool addPlayerResult = PlayerManager.AddPlayer(username);
+            Console.WriteLine(PlayerManager.AddPlayerStringOut(addPlayerResult,username));
             Console.ReadLine();
         }
         
         static string GetValidUsername()
         {
-            string input;
+            string username;
 
             do
             {
-                Console.Write("Digite o username: ");
-                input = Console.ReadLine();
+                Console.Write("Enter username: ");
+                username = Console.ReadLine();
 
-            } while (!IsValidInput(input));
+                if (!IsValidUsername(username))
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Invalid input! Usernames must not contain special characters or spaces and should be 1 to 21 characters long. Please try again.");
+                    Console.ResetColor();
+                }
 
-            // Extrair o nome de usuário do input
-            string username = input.Substring("Nome:".Length).Trim();
+            } while (!IsValidUsername(username));
 
             return username;
         }
 
-        static bool IsValidInput(string input)
-        {
-            string[] parts = input.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-            return parts.Length == 2 && parts[0].Equals("Nome:", StringComparison.OrdinalIgnoreCase) && IsValidUsername(parts[1]);
-        }
-
         static bool IsValidUsername(string username)
         {
+            // Check if the username is between 1 and 21 characters
             return !string.IsNullOrEmpty(username) &&
-                   username.Length <= 21 &&
-                   System.Text.RegularExpressions.Regex.IsMatch(username, "^[a-zA-Z0-9]+$");
+                   !HasSpecialCharacters(username) &&
+                   username.Length <= 21;
+        }
+
+        static bool HasSpecialCharacters(string input)
+        {
+            // This method to define what special characters are not allowed
+            // For simplicity, I'm considering only letters and numbers to be valid
+            foreach (char c in input)
+            {
+                if (!char.IsLetterOrDigit(c))
+                {
+                    return true; // Special character found
+                }
+            }
+            return false; // No special characters found
         }
 
         static void CloseProgram()

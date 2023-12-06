@@ -37,14 +37,14 @@ namespace NemLinha_Projeto
             }
         }
         
-        public static string AddPlayer(string playerName)
+        public static bool AddPlayer(string playerName)
         {
             List<Player> allPlayers = LoadPlayers();
 
             // Check if the player with the given username already exists
             if (allPlayers.Exists(player => player.Name == playerName))
             {
-                return $"Player with the username '{playerName}' already exists.";
+                return false;
             }
 
             // If the username doesn't exist, add the new player
@@ -52,7 +52,19 @@ namespace NemLinha_Projeto
             allPlayers.Add(newPlayer);
             SavePlayers(allPlayers);
 
-            return $"Player '{playerName}' added successfully.";
+            return true;
+        }
+
+        public static string AddPlayerStringOut(bool result,string pname)
+        {
+            if(result)
+            {
+                return $"O jogador '{pname}' foi adicionado com sucesso.";
+            }
+            else
+            {
+                return $"O jogador '{pname}' já existe.";
+            }
         }
         
         public static string UpdatePlayerStats(string playerName, Action<Player> updateAction)
