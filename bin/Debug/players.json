@@ -1,13 +1,13 @@
 [
   {
     "Name": "Player1",
-    "GamesPlayed": 120,
-    "Victories": 60
+    "GamesPlayed": 210,
+    "Victories": 105
   },
   {
     "Name": "Player2",
-    "GamesPlayed": 180,
-    "Victories": 96
+    "GamesPlayed": 315,
+    "Victories": 168
   },
   {
     "Name": "Primo",
@@ -21,6 +21,41 @@
   },
   {
     "Name": "paulo",
+    "GamesPlayed": 0,
+    "Victories": 0
+  },
+  {
+    "Name": "Paulo",
+    "GamesPlayed": 0,
+    "Victories": 0
+  },
+  {
+    "Name": "paula",
+    "GamesPlayed": 0,
+    "Victories": 0
+  },
+  {
+    "Name": "pedro",
+    "GamesPlayed": 0,
+    "Victories": 0
+  },
+  {
+    "Name": "primo",
+    "GamesPlayed": 0,
+    "Victories": 0
+  },
+  {
+    "Name": "ds",
+    "GamesPlayed": 0,
+    "Victories": 0
+  },
+  {
+    "Name": "ricardo",
+    "GamesPlayed": 0,
+    "Victories": 0
+  },
+  {
+    "Name": "Canca",
     "GamesPlayed": 0,
     "Victories": 0
   }

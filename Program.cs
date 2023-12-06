@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 
 namespace NemLinha_Projeto
 {
@@ -48,7 +49,7 @@ namespace NemLinha_Projeto
                         DrawPlayerMenu();
 
                         // Example: Update player's statistics using the method in the PlayerManager class
-                        string updateResult1 = PlayerManager.UpdatePlayerStats("Player1", player =>
+                        /*string updateResult1 = PlayerManager.UpdatePlayerStats("Player1", player =>
                         {
                             player.GamesPlayed += 10;
                             player.Victories += 5;
@@ -71,7 +72,7 @@ namespace NemLinha_Projeto
                             Console.WriteLine();
                         }
 
-                        Console.ReadKey();
+                        Console.ReadKey();*/
                         break;
                     default:
                         Console.WriteLine($"ERRO: {menuOptions[selectedIndex]}");
@@ -115,8 +116,25 @@ namespace NemLinha_Projeto
             Console.Clear();
             string username = GetValidUsername();
             bool addPlayerResult = PlayerManager.AddPlayer(username);
+
+            if (addPlayerResult)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
+            
             Console.WriteLine(PlayerManager.AddPlayerStringOut(addPlayerResult,username));
-            Console.ReadLine();
+            Console.ResetColor();
+            
+            if (addPlayerResult == false)
+            {
+                Thread.Sleep(1050);
+                AddPlayerForm();
+            }
+            Thread.Sleep(550);
         }
         
         static string GetValidUsername()
