@@ -1,15 +1,5 @@
 [
   {
-    "Name": "Player1",
-    "GamesPlayed": 210,
-    "Victories": 105
-  },
-  {
-    "Name": "Player2",
-    "GamesPlayed": 315,
-    "Victories": 168
-  },
-  {
     "Name": "Primo",
     "GamesPlayed": 0,
     "Victories": 0
@@ -56,6 +46,16 @@
   },
   {
     "Name": "Canca",
+    "GamesPlayed": 0,
+    "Victories": 0
+  },
+  {
+    "Name": "Coina",
+    "GamesPlayed": 0,
+    "Victories": 0
+  },
+  {
+    "Name": "preto",
     "GamesPlayed": 0,
     "Victories": 0
   }

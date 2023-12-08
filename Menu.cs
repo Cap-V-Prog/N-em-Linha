@@ -3,7 +3,16 @@ namespace NemLinha_Projeto
 {
     public class Menu
     {
-        public int ShowMenu(string[] options,string menuTitle = "MENU",int style=1 )
+        public bool ConfirmAction(string prompt)
+        {
+            Console.WriteLine(prompt);
+            Console.Write("Digite 's' para confirmar ou 'n' para cancelar: ");
+            string userInput = Console.ReadLine().ToLower();
+
+            return userInput == "s";
+        }
+        
+        public int ShowMenu(string[] options,string menuTitle = "MENU",int style=1,string specialText=null,bool spaceExit=true )
         {
             
             int selectedIndex = 0;
@@ -12,22 +21,38 @@ namespace NemLinha_Projeto
             {
                 Console.Clear();
                 Console.WriteLine($"{MenuStyles(menuTitle,style)}\n");
+
+                if (specialText != null)
+                {
+                    Console.WriteLine(specialText);
+                }
                 
                 for (int i = 0; i < options.Length - 1; i++)
                 {
                     if (i == selectedIndex)
                     {
-                        Console.BackgroundColor = ConsoleColor.Gray;
-                        Console.ForegroundColor = ConsoleColor.Black;
+                        if (specialText != null && selectedIndex == options.Length-2)
+                        {
+                            Console.BackgroundColor = ConsoleColor.Yellow;
+                            Console.ForegroundColor = ConsoleColor.Black;
+                        }
+                        else
+                        {
+                            Console.BackgroundColor = ConsoleColor.Gray;
+                            Console.ForegroundColor = ConsoleColor.Black;
+                        }
                     }
 
                     Console.WriteLine(options[i]);
 
                     Console.ResetColor();
                 }
-
-                // Add a larger space before the "Exit" option
-                Console.WriteLine("\n");
+                
+                if(spaceExit)
+                {
+                    // Add a larger space before the "Exit" option
+                    Console.WriteLine("\n");
+                }
 
                 // Highlight the "Exit" option if it's selected
                 if (options.Length - 1 == selectedIndex)

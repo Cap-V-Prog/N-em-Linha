@@ -17,11 +17,9 @@ namespace NemLinha_Projeto
         }
 
         // Method to display player information
-        public void DisplayPlayerInfo()
+        public string DisplayPlayerInfo()
         {
-            Console.WriteLine($"Player: {Name}");
-            Console.WriteLine($"Games Played: {GamesPlayed}");
-            Console.WriteLine($"Victories: {Victories}");
+            return $"Player: {Name}\nGames Played: {GamesPlayed}\nVictories: {Victories}";
         }
 
         // Method to convert player data to JSON string

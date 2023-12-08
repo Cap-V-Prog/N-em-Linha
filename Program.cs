@@ -98,8 +98,10 @@ namespace NemLinha_Projeto
             {
                 case 0:
                     AddPlayerForm();
+                    DrawPlayerMenu();
                     break;
                 case 1:
+                    ListPlayersMenu();
                     break;
                 case 2:
                     break;
@@ -108,6 +110,59 @@ namespace NemLinha_Projeto
                 default:
                     Console.WriteLine($"ERRO: {pMenuOptions[pSelectedIndex]}");
                     break;
+            }
+        }
+        
+        static void PlayerDetailsMenu(string playerName)
+        {
+            Menu menu = new Menu();
+            string[] menuOptions = { "Apagar Jogador","Voltar" };
+
+            int selectedIndex = menu.ShowMenu(menuOptions, $"Detalhes de {playerName}", 0,PlayerManager.DisplayPlayerInfo(playerName),false);
+
+            switch (selectedIndex)
+            {
+                case 0:
+                    // Apagar Jogador (Delete Player)
+                    bool deleteConfirmation = menu.ConfirmAction($"Tem certeza que deseja apagar o jogador {playerName}?");
+
+                    if (deleteConfirmation)
+                    {
+                        string deleteResult = PlayerManager.DeletePlayer(playerName);
+                        Console.WriteLine(deleteResult);
+                        ListPlayersMenu();
+                    }
+                    else
+                    {
+                        // If the deletion is not confirmed, go back to the player details menu
+                        PlayerDetailsMenu(playerName);
+                    }
+                    break;
+                case 1:
+                    // Voltar (Go back)
+                    ListPlayersMenu();
+                    break;
+            }
+        }
+
+        static void ListPlayersMenu()
+        {
+            Menu menu = new Menu();
+            string[] playerNames = PlayerManager.ListAllPlayerNames();
+
+            string[] menuOptions = new string[playerNames.Length + 1];
+            Array.Copy(playerNames, menuOptions, playerNames.Length);
+            menuOptions[playerNames.Length] = "Voltar";
+
+            int selectedIndex = menu.ShowMenu(menuOptions, "Lista de jogadores", 0);
+
+            if (selectedIndex == playerNames.Length)
+            {
+                DrawPlayerMenu();
+            }
+            else
+            {
+                PlayerDetailsMenu(playerNames[selectedIndex]);
             }
         }
 
@@ -150,7 +205,7 @@ namespace NemLinha_Projeto
                 {
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Invalid input! Usernames must not contain special characters or spaces and should be 1 to 21 characters long. Please try again.");
+                    Console.WriteLine("Entrada inválida! Nomes de usuário não podem conter caracteres especiais ou espaços e devem ter entre 1 e 21 caracteres. Tente novamente.");
                     Console.ResetColor();
                 }
 

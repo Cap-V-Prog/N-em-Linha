@@ -94,6 +94,51 @@ namespace NemLinha_Projeto
             }
         }
         
+        public static string[] ListAllPlayerNames()
+        {
+            List<Player> allPlayers = LoadPlayers();
+
+            // Extract player names into a string array
+            string[] playerNames = new string[allPlayers.Count];
+            for (int i = 0; i < allPlayers.Count; i++)
+            {
+                playerNames[i] = allPlayers[i].Name;
+            }
+
+            return playerNames;
+        }
+
+        public static string DisplayPlayerInfo(string playerName)
+        {
+            Player player=LoadPlayer(playerName);
+            
+            if (player != null)
+            {
+                return player.DisplayPlayerInfo();
+            }
+            else
+            {
+                return $"Player '{playerName}' not found.";
+            }
+        }
+        
+        public static string DeletePlayer(string playerName)
+        {
+            List<Player> allPlayers = LoadPlayers();
+            Player playerToRemove = allPlayers.Find(player => player.Name == playerName);
+
+            if (playerToRemove != null)
+            {
+                allPlayers.Remove(playerToRemove);
+                SavePlayers(allPlayers);
+                return $"Jogador '{playerName}' apagado com sucesso.";
+            }
+            else
+            {
+                return $"Jogador '{playerName}' não encontrado.";
+            }
+        }
+        
         public static void ClearAllPlayers()
         {
             // Clear all players by overwriting the file with an empty list
