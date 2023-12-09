@@ -16,13 +16,6 @@ namespace NemLinha_Projeto
             File.WriteAllText(FilePath, json);
         }
 
-        // Method to load players' data from a JSON file for a specific player
-        public static Player LoadPlayer(string playerName)
-        {
-            List<Player> players = LoadPlayers();
-            return players.Find(player => player.Name == playerName);
-        }
-
         // Method to load players' data from a JSON file
         public static List<Player> LoadPlayers()
         {
@@ -61,10 +54,7 @@ namespace NemLinha_Projeto
             {
                 return $"O jogador '{pname}' foi adicionado com sucesso.";
             }
-            else
-            {
-                return $"O jogador '{pname}' já existe.";
-            }
+            return $"O jogador '{pname}' já existe.";
         }
         
         public static string UpdatePlayerStats(string playerName, Action<Player> updateAction)
@@ -81,17 +71,11 @@ namespace NemLinha_Projeto
                 {
                     allPlayers[index] = currentPlayer;
                     SavePlayers(allPlayers);
-                    return $"Player '{playerName}' statistics updated successfully.";
+                    return $"O jogador '{playerName}' foi atualizado com sucesso.";
                 }
-                else
-                {
-                    return $"Player '{playerName}' not found in the list.";
-                }
+                return $"O jogador '{playerName}' não foi encontrado na lista.";
             }
-            else
-            {
-                return $"Player '{playerName}' not found.";
-            }
+            return $"O jogador '{playerName}' não foi encontrado.";
         }
         
         public static string[] ListAllPlayerNames()
@@ -110,16 +94,14 @@ namespace NemLinha_Projeto
 
         public static string DisplayPlayerInfo(string playerName)
         {
-            Player player=LoadPlayer(playerName);
+            List<Player> allPlayers = LoadPlayers();
+            Player currentPlayer = allPlayers.Find(player => player.Name == playerName);
             
-            if (player != null)
+            if (currentPlayer != null)
             {
-                return player.DisplayPlayerInfo();
+                return currentPlayer.DisplayPlayerInfo();
             }
-            else
-            {
-                return $"Player '{playerName}' not found.";
-            }
+            return $"Jogador '{playerName}' não encontrado.";
         }
         
         public static string DeletePlayer(string playerName)
@@ -133,17 +115,27 @@ namespace NemLinha_Projeto
                 SavePlayers(allPlayers);
                 return $"Jogador '{playerName}' apagado com sucesso.";
             }
-            else
-            {
-                return $"Jogador '{playerName}' não encontrado.";
-            }
+            return $"Jogador '{playerName}' não encontrado.";
         }
         
         public static void ClearAllPlayers()
         {
             // Clear all players by overwriting the file with an empty list
-            SavePlayers(new List<Player>());
-            Console.WriteLine("All players cleared.");
+            List<Player> allPlayers = LoadPlayers();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine();
+            if(allPlayers.Count>0)
+            {
+                SavePlayers(new List<Player>());
+                Console.WriteLine($"Todos os '{allPlayers.Count}' jogadores foram apagados.");
+                
+            }
+            else
+            {
+                Console.WriteLine($"Não há jogadores resgistados");
+                Console.ResetColor();
+            }
+            Console.ResetColor();
         }
     }
 }

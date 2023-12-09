@@ -7,7 +7,7 @@ namespace NemLinha_Projeto
         {
             Console.WriteLine(prompt);
             Console.Write("Digite 's' para confirmar ou 'n' para cancelar: ");
-            string userInput = Console.ReadLine().ToLower();
+            string userInput = Console.ReadLine()?.ToLower();
 
             return userInput == "s";
         }
@@ -24,7 +24,7 @@ namespace NemLinha_Projeto
 
                 if (specialText != null)
                 {
-                    Console.WriteLine(specialText);
+                    Console.WriteLine($"{specialText}\n");
                 }
                 
                 for (int i = 0; i < options.Length - 1; i++)

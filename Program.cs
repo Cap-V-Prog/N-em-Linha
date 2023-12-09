@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 
 namespace NemLinha_Projeto
@@ -43,36 +41,9 @@ namespace NemLinha_Projeto
                         Console.ReadKey();
                         break;
                     case 1:
-                        PlayerManager.ClearAllPlayers();
                         break;
                     case 2:
                         DrawPlayerMenu();
-
-                        // Example: Update player's statistics using the method in the PlayerManager class
-                        /*string updateResult1 = PlayerManager.UpdatePlayerStats("Player1", player =>
-                        {
-                            player.GamesPlayed += 10;
-                            player.Victories += 5;
-                        });
-
-                        string updateResult2 = PlayerManager.UpdatePlayerStats("Player2", player =>
-                        {
-                            player.GamesPlayed += 15;
-                            player.Victories += 8;
-                        });
-
-                        Console.WriteLine(updateResult1);
-                        Console.WriteLine(updateResult2);
-
-                        // Example: Display updated player information
-                        List<Player> players = PlayerManager.LoadPlayers();
-                        foreach (var player in players)
-                        {
-                            player.DisplayPlayerInfo();
-                            Console.WriteLine();
-                        }
-
-                        Console.ReadKey();*/
                         break;
                     default:
                         Console.WriteLine($"ERRO: {menuOptions[selectedIndex]}");
@@ -104,8 +75,9 @@ namespace NemLinha_Projeto
                     ListPlayersMenu();
                     break;
                 case 2:
-                    break;
-                case 3:
+                    PlayerManager.ClearAllPlayers();
+                    Console.ReadKey();
+                    DrawPlayerMenu();
                     break;
                 default:
                     Console.WriteLine($"ERRO: {pMenuOptions[pSelectedIndex]}");
@@ -189,7 +161,7 @@ namespace NemLinha_Projeto
                 Thread.Sleep(1050);
                 AddPlayerForm();
             }
-            Thread.Sleep(550);
+            Thread.Sleep(1050);
         }
         
         static string GetValidUsername()
@@ -198,7 +170,7 @@ namespace NemLinha_Projeto
 
             do
             {
-                Console.Write("Enter username: ");
+                Console.Write("Introduza o nome de utilizador:");
                 username = Console.ReadLine();
 
                 if (!IsValidUsername(username))
@@ -239,7 +211,7 @@ namespace NemLinha_Projeto
         static void CloseProgram()
         {
             Console.Clear();
-            Console.WriteLine("Closing the program. Press any key to exit.");
+            Console.WriteLine("Encerrando o programa. Pressione qualquer tecla para sair.");
             Console.ReadKey();
             Environment.Exit(0);
         }

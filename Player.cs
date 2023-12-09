@@ -1,5 +1,4 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace NemLinha_Projeto
 {
@@ -19,7 +18,7 @@ namespace NemLinha_Projeto
         // Method to display player information
         public string DisplayPlayerInfo()
         {
-            return $"Player: {Name}\nGames Played: {GamesPlayed}\nVictories: {Victories}";
+            return $"Jogador:\t{Name}\nJogos jogados:\t{GamesPlayed}\nVitórias:\t{Victories}";
         }
 
         // Method to convert player data to JSON string
