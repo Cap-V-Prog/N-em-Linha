@@ -89,15 +89,16 @@ namespace NemLinha_Projeto
         {
             Menu menu = new Menu();
             string[] menuOptions = { "Apagar Jogador","Voltar" };
-
+            
             int selectedIndex = menu.ShowMenu(menuOptions, $"Detalhes de {playerName}", 0,PlayerManager.DisplayPlayerInfo(playerName),false);
 
             switch (selectedIndex)
             {
                 case 0:
                     // Apagar Jogador (Delete Player)
+                    Console.WriteLine();
                     bool deleteConfirmation = menu.ConfirmAction($"Tem certeza que deseja apagar o jogador {playerName}?");
-
+                    
                     if (deleteConfirmation)
                     {
                         string deleteResult = PlayerManager.DeletePlayer(playerName);

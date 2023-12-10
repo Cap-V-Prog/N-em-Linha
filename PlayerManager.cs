@@ -122,20 +122,27 @@ namespace NemLinha_Projeto
         {
             // Clear all players by overwriting the file with an empty list
             List<Player> allPlayers = LoadPlayers();
-            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine();
             if(allPlayers.Count>0)
             {
-                SavePlayers(new List<Player>());
-                Console.WriteLine($"Todos os '{allPlayers.Count}' jogadores foram apagados.");
-                
+                Menu menu = new Menu();
+                bool deleteConfirmation = menu.ConfirmAction($"Tem certeza que deseja apagar todos os jogadores?");
+
+                if (deleteConfirmation)
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    SavePlayers(new List<Player>());
+                    Console.WriteLine($"Todos os '{allPlayers.Count}' jogadores foram apagados.");
+                }
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine($"Não há jogadores resgistados");
                 Console.ResetColor();
             }
             Console.ResetColor();
+            Console.WriteLine($"Pressione qualquer tecla para continuar.");
         }
     }
 }

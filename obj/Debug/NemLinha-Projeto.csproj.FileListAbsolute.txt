@@ -1,7 +1,6 @@
 C:\Users\mario\RiderProjects\NemLinha-Projeto\NemLinha-Projeto\bin\Debug\NemLinha_Projeto.exe
 C:\Users\mario\RiderProjects\NemLinha-Projeto\NemLinha-Projeto\bin\Debug\NemLinha_Projeto.pdb
 C:\Users\mario\RiderProjects\NemLinha-Projeto\NemLinha-Projeto\obj\Debug\NemLinha-Projeto.csproj.AssemblyReference.cache
-C:\Users\mario\RiderProjects\NemLinha-Projeto\NemLinha-Projeto\obj\Debug\NemLinha-Projeto.csproj.SuggestedBindingRedirects.cache
 C:\Users\mario\RiderProjects\NemLinha-Projeto\NemLinha-Projeto\obj\Debug\NemLinha-Projeto.csproj.CoreCompileInputs.cache
 C:\Users\mario\RiderProjects\NemLinha-Projeto\NemLinha-Projeto\obj\Debug\NemLinha_Projeto.exe
 C:\Users\mario\RiderProjects\NemLinha-Projeto\NemLinha-Projeto\obj\Debug\NemLinha_Projeto.pdb
