@@ -8,6 +8,12 @@ namespace NemLinha_Projeto
     public class PlayerManager
     {
         private const string FilePath = "players.json";
+        static LanguageManager languageManager;
+
+        static PlayerManager()
+        {
+            languageManager = new LanguageManager("pt"); // Replace with your default language
+        }
 
         // Method to save player data to a JSON file
         public static void SavePlayers(List<Player> players)
@@ -48,13 +54,10 @@ namespace NemLinha_Projeto
             return true;
         }
 
-        public static string AddPlayerStringOut(bool result,string pname)
+        public static string AddPlayerStringOut(bool result, string pname)
         {
-            if(result)
-            {
-                return $"O jogador '{pname}' foi adicionado com sucesso.";
-            }
-            return $"O jogador '{pname}' já existe.";
+            string key = result ? "add_player_success" : "add_player_exists";
+            return languageManager.Translate(key, pname);
         }
         
         public static string UpdatePlayerStats(string playerName, Action<Player> updateAction)

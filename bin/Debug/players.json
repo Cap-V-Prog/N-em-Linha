@@ -1,1 +1,27 @@
-[]
+[
+  {
+    "Name": "123",
+    "GamesPlayed": 0,
+    "Victories": 0
+  },
+  {
+    "Name": "321",
+    "GamesPlayed": 0,
+    "Victories": 0
+  },
+  {
+    "Name": "4321",
+    "GamesPlayed": 0,
+    "Victories": 0
+  },
+  {
+    "Name": "545",
+    "GamesPlayed": 0,
+    "Victories": 0
+  },
+  {
+    "Name": "54",
+    "GamesPlayed": 0,
+    "Victories": 0
+  }
+]

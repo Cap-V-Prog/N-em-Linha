@@ -1,0 +1,9 @@
+{
+    "add_player_success": "Player '{0}' added successfully.",
+    "add_player_exists": "Player '{0}' already exists.",
+    "delete_player_success": "Player '{0}' deleted successfully.",
+    "delete_player_not_found": "Player '{0}' not found.",
+    "clear_all_players": "All '{0}' players have been deleted.",
+    "press_any_key_to_continue": "Press any key to continue."
+    // Add more translations as needed
+}

@@ -1,0 +1,9 @@
+{
+    "add_player_success": "Jogador '{0}' adicionado com sucesso.",
+    "add_player_exists": "Jogador '{0}' já existe.",
+    "delete_player_success": "Jogador '{0}' apagado com sucesso.",
+    "delete_player_not_found": "Jogador '{0}' não encontrado.",
+    "clear_all_players": "Todos os '{0}' jogadores foram apagados.",
+    "press_any_key_to_continue": "Pressione qualquer tecla para continuar."
+    // Add more translations as needed
+}

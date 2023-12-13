@@ -45,11 +45,13 @@
     <ItemGroup>
         <Compile Include="Game.cs" />
         <Compile Include="Grid.cs" />
+        <Compile Include="LanguageManager.cs" />
         <Compile Include="Menu.cs" />
         <Compile Include="Player.cs" />
         <Compile Include="PlayerManager.cs" />
         <Compile Include="Program.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
+        <Compile Include="Settings.cs" />
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />

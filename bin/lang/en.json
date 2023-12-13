@@ -1,0 +1,22 @@
+{
+  "add_player_success": "Player '{0}' added successfully.",
+  "add_player_exists": "Player '{0}' already exists.",
+  "delete_player_success": "Player '{0}' deleted successfully.",
+  "delete_player_not_found": "Player '{0}' not found.",
+  "clear_all_players": "All '{0}' players have been deleted.",
+  "press_any_key_to_continue": "Press any key to continue.",
+  "players": "Players",
+  "back": "Back",
+  "details_of": "Details of",
+  "delete_player": "Delete Player",
+  "confirm_delete": "Are you sure you want to delete the player {0}?",
+  "players_list": "Players List",
+  "enter_username": "Enter username:",
+  "invalid_username": "Invalid entry! Usernames cannot contain special characters or spaces and must be between 1 and 21 characters. Please try again.",
+  "closing_program": "Closing the program. Press any key to exit.",
+  "options": "Options",
+  "language": "Language",
+  "color": "Color",
+  "choose_language": "Choose the language",
+  "error": "Error: {0}"
+}

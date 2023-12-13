@@ -7,6 +7,12 @@ namespace NemLinha_Projeto
     {
         static void Main()
         {
+            // Load settings once and keep them in memory
+            Settings settings = Settings.LoadSettings();
+
+            // Create a LanguageManager with the default language from the settings
+            LanguageManager languageManager = new LanguageManager(settings.Language);
+
             Menu menu = new Menu();
             
             Console.CursorVisible = false;
@@ -44,6 +50,9 @@ namespace NemLinha_Projeto
                         break;
                     case 2:
                         DrawPlayerMenu();
+                        break;
+                    case 3:
+                        OptionsMenu(languageManager);
                         break;
                     default:
                         Console.WriteLine($"ERRO: {menuOptions[selectedIndex]}");
@@ -215,6 +224,82 @@ namespace NemLinha_Projeto
             Console.WriteLine("Encerrando o programa. Pressione qualquer tecla para sair.");
             Console.ReadKey();
             Environment.Exit(0);
+        }
+        
+        private static void OptionsMenu(LanguageManager languageManager)
+        {
+            Menu menu = new Menu();
+
+            string[] optionsMenuOptions = { "Linguagem", "Cor", "Voltar" };
+            int selectedIndex = menu.ShowMenu(optionsMenuOptions, "Opções", 0);
+
+            if (selectedIndex == optionsMenuOptions.Length - 1)
+            {
+                Main();
+            }
+            
+            switch (selectedIndex)
+            {
+                case 0:
+                    // User selected "Linguagem" (Language)
+                    Console.Clear();
+                    ShowLanguageOptions(languageManager);
+                    OptionsMenu(languageManager);
+                    break;
+
+                case 1:
+                    // User selected "Cor" (Color)
+                    Console.Clear();
+                    //ShowColorOptions();
+                    break;
+
+                default:
+                    Console.WriteLine($"ERRO: {optionsMenuOptions[selectedIndex]}");
+                    Console.ReadKey();
+                    break;
+            }
+        }
+        
+        private static void ShowLanguageOptions(LanguageManager languageManager)
+        {
+            // Load settings once and keep them in memory
+            Settings settings = Settings.LoadSettings();
+
+            string[] languageOptions = { "English", "Português", "voltar" };
+            int selectedIndex = new Menu().ShowMenu(languageOptions, "Escolha o idioma", 0);
+
+            if (selectedIndex == languageOptions.Length - 1)
+            {
+                OptionsMenu(languageManager);
+            }
+            
+            // Update the language based on the user's selection
+            switch (selectedIndex)
+            {
+                case 0:
+                    settings.Language = "en";
+                    break;
+
+                case 1:
+                    settings.Language = "pt";
+                    break;
+
+                // Add more cases for additional languages
+
+                default:
+                    Console.WriteLine($"ERRO: {languageOptions[selectedIndex]}");
+                    Console.ReadKey();
+                    break;
+            }
+
+            // Save the updated settings
+            settings.SaveSettings();
+
+            // Clear the cached settings to force a reload
+            Settings.ClearCachedSettings();
+
+            // Change the language in the LanguageManager
+            languageManager.ChangeLanguage(settings.Language);
         }
         
     }
