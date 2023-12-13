@@ -19,4 +19,8 @@
   "color": "Cor",
   "choose_language": "Escolha o idioma",
   "error": "Erro: {0}"
+  "new_player": "Novo Jogador",
+  "list_all": "Listar todos",
+  "clear_all": "Apagar todos",
+  "back": "Voltar",
 }

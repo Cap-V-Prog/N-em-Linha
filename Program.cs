@@ -5,19 +5,20 @@ namespace NemLinha_Projeto
 {
     class Program
     {
+        private static LanguageManager _languageManager;
         static void Main()
         {
             // Load settings once and keep them in memory
             Settings settings = Settings.LoadSettings();
-
+    
             // Create a LanguageManager with the default language from the settings
-            LanguageManager languageManager = new LanguageManager(settings.Language);
-
+            _languageManager = new LanguageManager(settings.Language);
+            
             Menu menu = new Menu();
             
             Console.CursorVisible = false;
             
-            string[] menuOptions = { "Novo jogo", "Continuar","Jogadores", "Opções", "Sair" };
+            string[] menuOptions = { "Novo jogo", "Continuar",_languageManager.Translate("players"), _languageManager.Translate("options"), "Sair" };
             int selectedIndex = menu.ShowMenu(menuOptions,"Menu principal",0);
 
             if (selectedIndex == menuOptions.Length - 1)
@@ -52,7 +53,7 @@ namespace NemLinha_Projeto
                         DrawPlayerMenu();
                         break;
                     case 3:
-                        OptionsMenu(languageManager);
+                        OptionsMenu();
                         break;
                     default:
                         Console.WriteLine($"ERRO: {menuOptions[selectedIndex]}");
@@ -66,8 +67,11 @@ namespace NemLinha_Projeto
         static void DrawPlayerMenu()
         {
             Menu menu = new Menu();
-            string[] pMenuOptions = { "Novo Jogador", "Listar todos","Apagar todos", "Voltar" };
-            int pSelectedIndex = menu.ShowMenu(pMenuOptions,"Jogadores",0);
+            string[] pMenuOptions = { _languageManager.Translate("new_player"),
+                _languageManager.Translate("list_all"),
+                _languageManager.Translate("clear_all"),
+                _languageManager.Translate("back") };
+            int pSelectedIndex = menu.ShowMenu(pMenuOptions,_languageManager.Translate("players"),0);
 
             if (pSelectedIndex == pMenuOptions.Length - 1)
             {
@@ -97,16 +101,16 @@ namespace NemLinha_Projeto
         static void PlayerDetailsMenu(string playerName)
         {
             Menu menu = new Menu();
-            string[] menuOptions = { "Apagar Jogador","Voltar" };
+            string[] menuOptions = { _languageManager.Translate("delete_player"),_languageManager.Translate("back") };
             
-            int selectedIndex = menu.ShowMenu(menuOptions, $"Detalhes de {playerName}", 0,PlayerManager.DisplayPlayerInfo(playerName),false);
+            int selectedIndex = menu.ShowMenu(menuOptions, $"{_languageManager.Translate("details_of")} {playerName}", 0, PlayerManager.DisplayPlayerInfo(playerName),false);
 
             switch (selectedIndex)
             {
                 case 0:
                     // Apagar Jogador (Delete Player)
                     Console.WriteLine();
-                    bool deleteConfirmation = menu.ConfirmAction($"Tem certeza que deseja apagar o jogador {playerName}?");
+                    bool deleteConfirmation = menu.ConfirmAction(_languageManager.Translate("confirm_delete",playerName));
                     
                     if (deleteConfirmation)
                     {
@@ -134,9 +138,9 @@ namespace NemLinha_Projeto
 
             string[] menuOptions = new string[playerNames.Length + 1];
             Array.Copy(playerNames, menuOptions, playerNames.Length);
-            menuOptions[playerNames.Length] = "Voltar";
+            menuOptions[playerNames.Length] = _languageManager.Translate("back");
 
-            int selectedIndex = menu.ShowMenu(menuOptions, "Lista de jogadores", 0);
+            int selectedIndex = menu.ShowMenu(menuOptions, _languageManager.Translate("players_list"), 0);
 
             if (selectedIndex == playerNames.Length)
             {
@@ -163,7 +167,7 @@ namespace NemLinha_Projeto
                 Console.ForegroundColor = ConsoleColor.Red;
             }
             
-            Console.WriteLine(PlayerManager.AddPlayerStringOut(addPlayerResult,username));
+            Console.WriteLine(PlayerManager.AddPlayerStringOut(addPlayerResult, username,LanguageManager));
             Console.ResetColor();
             
             if (addPlayerResult == false)
@@ -180,14 +184,14 @@ namespace NemLinha_Projeto
 
             do
             {
-                Console.Write("Introduza o nome de utilizador:");
+                Console.Write(_languageManager.Translate("enter_username"));
                 username = Console.ReadLine();
 
                 if (!IsValidUsername(username))
                 {
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Entrada inválida! Nomes de usuário não podem conter caracteres especiais ou espaços e devem ter entre 1 e 21 caracteres. Tente novamente.");
+                    Console.WriteLine(_languageManager.Translate("invalid_username"));
                     Console.ResetColor();
                 }
 
@@ -221,17 +225,19 @@ namespace NemLinha_Projeto
         static void CloseProgram()
         {
             Console.Clear();
-            Console.WriteLine("Encerrando o programa. Pressione qualquer tecla para sair.");
+            Console.WriteLine(_languageManager.Translate("closing_program"));
             Console.ReadKey();
             Environment.Exit(0);
         }
         
-        private static void OptionsMenu(LanguageManager languageManager)
+        private static void OptionsMenu()
         {
             Menu menu = new Menu();
 
-            string[] optionsMenuOptions = { "Linguagem", "Cor", "Voltar" };
-            int selectedIndex = menu.ShowMenu(optionsMenuOptions, "Opções", 0);
+            string[] optionsMenuOptions = { _languageManager.Translate("language"),
+                _languageManager.Translate("color"), 
+                _languageManager.Translate("back") };
+            int selectedIndex = menu.ShowMenu(optionsMenuOptions, _languageManager.Translate("options"), 0);
 
             if (selectedIndex == optionsMenuOptions.Length - 1)
             {
@@ -243,8 +249,8 @@ namespace NemLinha_Projeto
                 case 0:
                     // User selected "Linguagem" (Language)
                     Console.Clear();
-                    ShowLanguageOptions(languageManager);
-                    OptionsMenu(languageManager);
+                    ShowLanguageOptions();
+                    OptionsMenu();
                     break;
 
                 case 1:
@@ -260,17 +266,17 @@ namespace NemLinha_Projeto
             }
         }
         
-        private static void ShowLanguageOptions(LanguageManager languageManager)
+        private static void ShowLanguageOptions()
         {
             // Load settings once and keep them in memory
             Settings settings = Settings.LoadSettings();
 
-            string[] languageOptions = { "English", "Português", "voltar" };
-            int selectedIndex = new Menu().ShowMenu(languageOptions, "Escolha o idioma", 0);
+            string[] languageOptions = { "English", "Português", _languageManager.Translate("back") };
+            int selectedIndex = new Menu().ShowMenu(languageOptions, _languageManager.Translate("choose_language"), 0);
 
             if (selectedIndex == languageOptions.Length - 1)
             {
-                OptionsMenu(languageManager);
+                OptionsMenu();
             }
             
             // Update the language based on the user's selection
@@ -299,8 +305,12 @@ namespace NemLinha_Projeto
             Settings.ClearCachedSettings();
 
             // Change the language in the LanguageManager
-            languageManager.ChangeLanguage(settings.Language);
+            LanguageManager.ChangeLanguage(settings.Language);
         }
         
+        public static LanguageManager LanguageManager
+        {
+            get { return _languageManager; }
+        }
     }
 }

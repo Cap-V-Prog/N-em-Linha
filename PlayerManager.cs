@@ -54,7 +54,7 @@ namespace NemLinha_Projeto
             return true;
         }
 
-        public static string AddPlayerStringOut(bool result, string pname)
+        public static string AddPlayerStringOut(bool result, string pname, LanguageManager languageManager)
         {
             string key = result ? "add_player_success" : "add_player_exists";
             return languageManager.Translate(key, pname);
