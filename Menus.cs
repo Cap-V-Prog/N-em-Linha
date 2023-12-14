@@ -1,15 +1,16 @@
 ﻿using System;
 namespace NemLinha_Projeto
 {
-    public class Menu
+    public class Menus
     {
         public bool ConfirmAction(string prompt)
         {
             Console.WriteLine(prompt);
-            Console.Write("Digite 's' para confirmar ou 'n' para cancelar: ");
+            Console.Write(Program.LanguageManager.Translate("confirm_delete_text"));
             string userInput = Console.ReadLine()?.ToLower();
 
-            return userInput == "s";
+            //Anything else will be considered as error by the user
+            return userInput == "s"||userInput=="y"||userInput=="j"||userInput=="o";
         }
         
         public int ShowMenu(string[] options,string menuTitle = "MENU",int style=1,string specialText=null,bool spaceExit=true )

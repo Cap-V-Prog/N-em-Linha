@@ -18,7 +18,7 @@ namespace NemLinha_Projeto
         // Method to display player information
         public string DisplayPlayerInfo()
         {
-            return $"Jogador:\t{Name}\nJogos jogados:\t{GamesPlayed}\nVitórias:\t{Victories}";
+            return $"{Program.LanguageManager.Translate("player")}:\t{Name}\n{Program.LanguageManager.Translate("played_games")}:\t{GamesPlayed}\n{Program.LanguageManager.Translate("wins")}:\t{Victories}";
         }
 
         // Method to convert player data to JSON string

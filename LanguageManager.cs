@@ -62,8 +62,28 @@ namespace NemLinha_Projeto
         {
             lock (_lockObject)
             {
-                _currentLanguage = newLanguage;
-                LoadTranslations();
+                if (_currentLanguage.Equals(newLanguage, StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"\nLanguage is already set to {_currentLanguage}");
+                    Console.ResetColor();
+                    return; // Skip loading if the language is the same
+                }
+
+                try
+                {
+                    _currentLanguage = newLanguage;
+                    LoadTranslations();
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine($"\nLanguage changed to {_currentLanguage}");
+                    Console.ResetColor();
+                }
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"\nError changing language: {ex.Message}");
+                    Console.ResetColor();
+                }
             }
         }
     }

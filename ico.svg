@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Camada_1" data-name="Camada 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #1aaa97;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #ee705e;
+      }
+
+      .cls-4 {
+        fill: #ee705f;
+        font-family: Alfarn2, 'Alfarn 2';
+        font-size: 85px;
+      }
+
+      .cls-3 {
+        fill: #4d5454;
+      }
+
+      .cls-5 {
+        letter-spacing: -.03em;
+      }
+    </style>
+  </defs>
+  <rect class="cls-3" width="800" height="800"/>
+  <circle class="cls-2" cx="613.97" cy="150.47" r="50"/>
+  <circle class="cls-1" cx="341.79" cy="150.47" r="50"/>
+  <circle class="cls-1" cx="477.88" cy="150.47" r="50"/>
+  <circle class="cls-1" cx="205.69" cy="150.47" r="50"/>
+  <circle class="cls-1" cx="613.97" cy="284.66" r="50"/>
+  <circle class="cls-1" cx="341.79" cy="284.66" r="50"/>
+  <circle class="cls-2" cx="477.88" cy="284.66" r="50"/>
+  <circle class="cls-1" cx="205.69" cy="284.66" r="50"/>
+  <circle class="cls-1" cx="613.97" cy="427.75" r="50"/>
+  <circle class="cls-2" cx="341.79" cy="427.75" r="50"/>
+  <circle class="cls-1" cx="477.88" cy="427.75" r="50"/>
+  <circle class="cls-1" cx="205.69" cy="427.75" r="50"/>
+  <circle class="cls-1" cx="613.97" cy="558.75" r="50"/>
+  <circle class="cls-1" cx="341.79" cy="558.75" r="50"/>
+  <circle class="cls-1" cx="477.88" cy="558.75" r="50"/>
+  <circle class="cls-2" cx="205.69" cy="558.75" r="50"/>
+  <text class="cls-4" transform="translate(155.69 699.25)"><tspan class="cls-5" x="0" y="0">C</tspan><tspan x="53.46" y="0">ONNECT 4</tspan></text>
+</svg>

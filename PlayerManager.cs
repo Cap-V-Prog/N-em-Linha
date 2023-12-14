@@ -7,13 +7,10 @@ namespace NemLinha_Projeto
 {
     public class PlayerManager
     {
-        private const string FilePath = "players.json";
-        static LanguageManager languageManager;
-
-        static PlayerManager()
-        {
-            languageManager = new LanguageManager("pt"); // Replace with your default language
-        }
+        // Constant for the file path
+        private const string SettingsFolderPath = "data";
+        private const string SettingsFileName = "players.json";
+        private static readonly string FilePath = Path.Combine(SettingsFolderPath, SettingsFileName);
 
         // Method to save player data to a JSON file
         public static void SavePlayers(List<Player> players)
@@ -60,7 +57,7 @@ namespace NemLinha_Projeto
             return languageManager.Translate(key, pname);
         }
         
-        public static string UpdatePlayerStats(string playerName, Action<Player> updateAction)
+        public static string UpdatePlayerStats(string playerName, Action<Player> updateAction, LanguageManager languageManager)
         {
             List<Player> allPlayers = LoadPlayers();
             Player currentPlayer = allPlayers.Find(player => player.Name == playerName);
@@ -74,11 +71,11 @@ namespace NemLinha_Projeto
                 {
                     allPlayers[index] = currentPlayer;
                     SavePlayers(allPlayers);
-                    return $"O jogador '{playerName}' foi atualizado com sucesso.";
+                    return languageManager.Translate("player_updated_success",playerName);
                 }
-                return $"O jogador '{playerName}' não foi encontrado na lista.";
+                return languageManager.Translate("player_not_found",playerName);
             }
-            return $"O jogador '{playerName}' não foi encontrado.";
+            return languageManager.Translate("player_not_found",playerName);
         }
         
         public static string[] ListAllPlayerNames()
@@ -104,7 +101,7 @@ namespace NemLinha_Projeto
             {
                 return currentPlayer.DisplayPlayerInfo();
             }
-            return $"Jogador '{playerName}' não encontrado.";
+            return Program.LanguageManager.Translate("player_not_found",playerName);
         }
         
         public static string DeletePlayer(string playerName)
@@ -116,9 +113,9 @@ namespace NemLinha_Projeto
             {
                 allPlayers.Remove(playerToRemove);
                 SavePlayers(allPlayers);
-                return $"Jogador '{playerName}' apagado com sucesso.";
+                return Program.LanguageManager.Translate("delete_player_success",playerName);
             }
-            return $"Jogador '{playerName}' não encontrado.";
+            return Program.LanguageManager.Translate("player_not_found",playerName);
         }
         
         public static void ClearAllPlayers()
@@ -128,24 +125,24 @@ namespace NemLinha_Projeto
             Console.WriteLine();
             if(allPlayers.Count>0)
             {
-                Menu menu = new Menu();
-                bool deleteConfirmation = menu.ConfirmAction($"Tem certeza que deseja apagar todos os jogadores?");
+                Menus menus = new Menus();
+                bool deleteConfirmation = menus.ConfirmAction( Program.LanguageManager.Translate("confirm_delete_all_players"));
 
                 if (deleteConfirmation)
                 {
                     Console.ForegroundColor = ConsoleColor.Blue;
                     SavePlayers(new List<Player>());
-                    Console.WriteLine($"Todos os '{allPlayers.Count}' jogadores foram apagados.");
+                    Console.WriteLine(Program.LanguageManager.Translate("clear_all_players",allPlayers.Count));
                 }
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine($"Não há jogadores resgistados");
+                Console.WriteLine(Program.LanguageManager.Translate("no_players_registered"));
                 Console.ResetColor();
             }
             Console.ResetColor();
-            Console.WriteLine($"Pressione qualquer tecla para continuar.");
+            Console.WriteLine(Program.LanguageManager.Translate("press_any_key_to_continue"));
         }
     }
 }

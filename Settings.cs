@@ -8,23 +8,39 @@ namespace NemLinha_Projeto
     {
         // Properties for user preferences
         public string Language { get; set; }
-        // Add other properties for settings as needed
+        
+        // Constant for the file path
+        private const string SettingsFolderPath = "data";
+        private const string SettingsFileName = "settings.json";
+        private static readonly string SettingsFilePath = Path.Combine(SettingsFolderPath, SettingsFileName);
+        
+        // Default language
+        private const string DefaultLanguage = "en";
 
         // Static property to hold the loaded settings
-        private static Settings cachedSettings;
+        private static Settings _cachedSettings;
 
         // Save settings to a JSON file
         public void SaveSettings()
         {
-            string settingsFilePath = "settings.json";
-
             try
             {
+                if (!Directory.Exists(SettingsFolderPath))
+                {
+                    Directory.CreateDirectory(SettingsFolderPath);
+                }
+
+                // Set default language if not already set
+                if (string.IsNullOrEmpty(Language))
+                {
+                    Language = DefaultLanguage;
+                }
+
                 string json = JsonConvert.SerializeObject(this, Formatting.Indented);
-                File.WriteAllText(settingsFilePath, json);
+                File.WriteAllText(SettingsFilePath, json);
 
                 // Update the cached settings after saving
-                cachedSettings = this;
+                _cachedSettings = this;
             }
             catch (Exception ex)
             {
@@ -36,28 +52,28 @@ namespace NemLinha_Projeto
         public static Settings LoadSettings()
         {
             // If settings are already loaded, return the cached settings
-            if (cachedSettings != null)
+            if (_cachedSettings != null)
             {
-                return cachedSettings;
+                return _cachedSettings;
             }
-
-            string settingsFilePath = "settings.json";
 
             try
             {
-                if (File.Exists(settingsFilePath))
+                if (File.Exists(SettingsFilePath))
                 {
-                    string json = File.ReadAllText(settingsFilePath);
-                    cachedSettings = JsonConvert.DeserializeObject<Settings>(json);
+                    string json = File.ReadAllText(SettingsFilePath);
+                    _cachedSettings = JsonConvert.DeserializeObject<Settings>(json);
                 }
                 else
                 {
                     // If settings file doesn't exist, create a new instance with defaults
-                    cachedSettings = new Settings();
-                    cachedSettings.SaveSettings(); // Save the defaults to file
+                    _cachedSettings = new Settings();
+
+                    // Save the defaults to file
+                    _cachedSettings.SaveSettings();
                 }
 
-                return cachedSettings;
+                return _cachedSettings;
             }
             catch (Exception ex)
             {
@@ -69,7 +85,7 @@ namespace NemLinha_Projeto
         // Clear the cached settings (force a reload)
         public static void ClearCachedSettings()
         {
-            cachedSettings = null;
+            _cachedSettings = null;
         }
     }
 }
