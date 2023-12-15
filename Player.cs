@@ -18,8 +18,15 @@ namespace NemLinha_Projeto
         // Method to display player information
         public string DisplayPlayerInfo()
         {
-            return $"{Program.LanguageManager.Translate("player")}:\t{Name}\n{Program.LanguageManager.Translate("played_games")}:\t{GamesPlayed}\n{Program.LanguageManager.Translate("wins")}:\t{Victories}";
+            // Define a fixed width for the labels
+            const int labelWidth = -20;
+
+            // Use the fixed width for alignment
+            return $"{Program.LanguageManager.Translate("player")+":",labelWidth} {Name}\n" +
+                   $"{Program.LanguageManager.Translate("played_games")+":",labelWidth} {GamesPlayed}\n" +
+                   $"{Program.LanguageManager.Translate("wins")+":",labelWidth} {Victories}";
         }
+
 
         // Method to convert player data to JSON string
         public string ToJson()

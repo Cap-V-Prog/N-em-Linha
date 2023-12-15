@@ -6,8 +6,10 @@ namespace NemLinha_Projeto
     class Program
     {
         private static LanguageManager _languageManager;
+        private const string _gameTitle="\n \u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2557   \u2588\u2588\u2557\u2588\u2588\u2588\u2557   \u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557    \u2588\u2588\u2557  \u2588\u2588\u2557\n\u2588\u2588\u2554\u2550\u2550\u2550\u2550\u255d\u2588\u2588\u2554\u2550\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2557  \u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2557  \u2588\u2588\u2551\u2588\u2588\u2554\u2550\u2550\u2550\u2550\u255d\u2588\u2588\u2554\u2550\u2550\u2550\u2550\u255d\u255a\u2550\u2550\u2588\u2588\u2554\u2550\u2550\u255d    \u2588\u2588\u2551  \u2588\u2588\u2551\n\u2588\u2588\u2551     \u2588\u2588\u2551   \u2588\u2588\u2551\u2588\u2588\u2554\u2588\u2588\u2557 \u2588\u2588\u2551\u2588\u2588\u2554\u2588\u2588\u2557 \u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2588\u2557  \u2588\u2588\u2551        \u2588\u2588\u2551       \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2551\n\u2588\u2588\u2551     \u2588\u2588\u2551   \u2588\u2588\u2551\u2588\u2588\u2551\u255a\u2588\u2588\u2557\u2588\u2588\u2551\u2588\u2588\u2551\u255a\u2588\u2588\u2557\u2588\u2588\u2551\u2588\u2588\u2554\u2550\u2550\u255d  \u2588\u2588\u2551        \u2588\u2588\u2551       \u255a\u2550\u2550\u2550\u2550\u2588\u2588\u2551\n\u255a\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u255a\u2588\u2588\u2588\u2588\u2588\u2588\u2554\u255d\u2588\u2588\u2551 \u255a\u2588\u2588\u2588\u2588\u2551\u2588\u2588\u2551 \u255a\u2588\u2588\u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u255a\u2588\u2588\u2588\u2588\u2588\u2588\u2557   \u2588\u2588\u2551            \u2588\u2588\u2551\n \u255a\u2550\u2550\u2550\u2550\u2550\u255d \u255a\u2550\u2550\u2550\u2550\u2550\u255d \u255a\u2550\u255d  \u255a\u2550\u2550\u2550\u255d\u255a\u2550\u255d  \u255a\u2550\u2550\u2550\u255d\u255a\u2550\u2550\u2550\u2550\u2550\u2550\u255d \u255a\u2550\u2550\u2550\u2550\u2550\u255d   \u255a\u2550\u255d            \u255a\u2550\u255d\n                                                                          \n"; 
         static void Main()
         {
+            Console.WriteLine(_gameTitle);
             ConsoleLoader loader = new ConsoleLoader();
             loader.ShowLoader("Loading: ", 3);
             // Load settings once and keep them in memory
@@ -16,10 +18,16 @@ namespace NemLinha_Projeto
             // Create a LanguageManager with the default language from the settings
             _languageManager = new LanguageManager(settings.Language);
             
-            Menus menus = new Menus();
-            Console.WriteLine("Loading complete!");
+            Console.WriteLine(LanguageManager.Translate("loading_complete"));
             Console.WriteLine(LanguageManager.Translate("press_any_key_to_continue"));
             Console.ReadKey();
+            DrawMainMenu();
+        }
+
+        static void DrawMainMenu()
+        {
+            Menus menus = new Menus();
+            
             Console.CursorVisible = false;
             
             string[] menuOptions = { LanguageManager.Translate("new_game"),
@@ -27,7 +35,7 @@ namespace NemLinha_Projeto
                 LanguageManager.Translate("players"),
                 LanguageManager.Translate("options"),
                 LanguageManager.Translate("exit") };
-            int selectedIndex = menus.ShowMenu(menuOptions,LanguageManager.Translate("main_menu"),0);
+            int selectedIndex = menus.ShowMenu(menuOptions,LanguageManager.Translate("main_menu"),0,null,true,-1,_gameTitle);
 
             if (selectedIndex == menuOptions.Length - 1)
             {
@@ -83,7 +91,7 @@ namespace NemLinha_Projeto
 
             if (pSelectedIndex == pMenuOptions.Length - 1)
             {
-                Main();
+                DrawMainMenu();
             }
 
             switch (pSelectedIndex)
@@ -249,7 +257,7 @@ namespace NemLinha_Projeto
 
             if (selectedIndex == optionsMenuOptions.Length - 1)
             {
-                Main();
+                DrawMainMenu();
             }
             
             switch (selectedIndex)
@@ -282,7 +290,7 @@ namespace NemLinha_Projeto
             Settings settings = Settings.LoadSettings();
 
             string[] languageOptions = { "English", "Português","Español","Italiano","Deutsch","Français", _languageManager.Translate("back") };
-            int selectedIndex = new Menus().ShowMenu(languageOptions, _languageManager.Translate("choose_language"), 0);
+            int selectedIndex = new Menus().ShowMenu(languageOptions, _languageManager.Translate("choose_language"), 0,null,true,LanguageManager.GetLanguageIndex(settings.Language));
 
             if (selectedIndex == languageOptions.Length - 1)
             {

@@ -58,6 +58,21 @@ namespace NemLinha_Projeto
             }
         }
 
+        public int GetLanguageIndex(string languageCode)
+        {
+            // Helper method to get the index of the specified language code in the languageOptions array
+            switch (languageCode)
+            {
+                case "en": return 0;
+                case "pt": return 1;
+                case "es": return 2;
+                case "it": return 3;
+                case "d": return 4;
+                case "fr": return 5;
+                default: return -1; // Handle the default case or return an appropriate default index
+            }
+        }
+
         public void ChangeLanguage(string newLanguage)
         {
             lock (_lockObject)

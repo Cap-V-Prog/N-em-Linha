@@ -13,28 +13,36 @@ namespace NemLinha_Projeto
             return userInput == "s"||userInput=="y"||userInput=="j"||userInput=="o";
         }
         
-        public int ShowMenu(string[] options,string menuTitle = "MENU",int style=1,string specialText=null,bool spaceExit=true )
+        public int ShowMenu(string[] options, string menuTitle = "MENU", int style = 1, string specialText = null, bool spaceExit = true, int highlightedIndex = -1, string gameTitle=null)
         {
-            
             int selectedIndex = 0;
 
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine($"{MenuStyles(menuTitle,style)}\n");
+                if (gameTitle != null)
+                {
+                    Console.WriteLine(gameTitle);
+                }
+                Console.WriteLine($"{MenuStyles(menuTitle, style)}\n");
 
                 if (specialText != null)
                 {
                     Console.WriteLine($"{specialText}\n");
                 }
-                
+
                 for (int i = 0; i < options.Length - 1; i++)
                 {
+                    if (i == highlightedIndex)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                    }
+                        
                     if (i == selectedIndex)
                     {
-                        if (specialText != null && selectedIndex == options.Length-2)
+                        if (highlightedIndex != -1 && i == highlightedIndex)
                         {
-                            Console.BackgroundColor = ConsoleColor.Yellow;
+                            Console.BackgroundColor = ConsoleColor.Blue; // Set the color for the highlighted item
                             Console.ForegroundColor = ConsoleColor.Black;
                         }
                         else
@@ -48,8 +56,8 @@ namespace NemLinha_Projeto
 
                     Console.ResetColor();
                 }
-                
-                if(spaceExit)
+
+                if (spaceExit)
                 {
                     // Add a larger space before the "Exit" option
                     Console.WriteLine("\n");
@@ -83,6 +91,7 @@ namespace NemLinha_Projeto
                 }
             }
         }
+
 
         static string MenuStyles(string menuTitle, int styleType)
         {

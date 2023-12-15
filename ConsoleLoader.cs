@@ -5,9 +5,9 @@ namespace NemLinha_Projeto
 {
     public class ConsoleLoader
     {
-        private const int ProgressBarLength = 50;
-        private readonly char ProgressBarChar = '\u2588';
-        private readonly char EmptyProgressBarChar = '\u25a0';
+        private const int ProgressBarLength = 72;
+        private readonly char _progressBarChar = '\u2588';
+        private readonly char _emptyProgressBarChar = '\u25a0';
 
         public void ShowLoader(string message, int totalItems)
         {
@@ -19,16 +19,16 @@ namespace NemLinha_Projeto
                 double percentage = (double)i / totalItems;
                 int progressLength = (int)(percentage * ProgressBarLength);
 
-                string progressBar = new string(ProgressBarChar, progressLength) +
-                                     new string(EmptyProgressBarChar, ProgressBarLength - progressLength);
+                string progressBar = new string(_progressBarChar, progressLength) +
+                                     new string(_emptyProgressBarChar, ProgressBarLength - progressLength);
 
                 Console.Write($"\r[{progressBar}] {Math.Round(percentage * 100)}%");
                 int randomTime = random.Next(100, 1000);
-                Thread.Sleep(randomTime); // Simulate work being done
+                Thread.Sleep(randomTime);
 
                 if (i == totalItems)
                 {
-                    Console.WriteLine("\n"); // Move to the next line when loading is complete
+                    Console.WriteLine("\n");
                 }
             }
         }
