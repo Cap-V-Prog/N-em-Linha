@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Threading;
+using System.Media;
 
 namespace NemLinha_Projeto
 {
     class Program
     {
         private static LanguageManager _languageManager;
-        private const string GameVersion = "V0.15";
+        private const string GameVersion = "V0.16a";
         private const string GameTitle="\n \u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2557   \u2588\u2588\u2557\u2588\u2588\u2588\u2557   \u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557    \u2588\u2588\u2557  \u2588\u2588\u2557\n\u2588\u2588\u2554\u2550\u2550\u2550\u2550\u255d\u2588\u2588\u2554\u2550\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2557  \u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2557  \u2588\u2588\u2551\u2588\u2588\u2554\u2550\u2550\u2550\u2550\u255d\u2588\u2588\u2554\u2550\u2550\u2550\u2550\u255d\u255a\u2550\u2550\u2588\u2588\u2554\u2550\u2550\u255d    \u2588\u2588\u2551  \u2588\u2588\u2551\n\u2588\u2588\u2551     \u2588\u2588\u2551   \u2588\u2588\u2551\u2588\u2588\u2554\u2588\u2588\u2557 \u2588\u2588\u2551\u2588\u2588\u2554\u2588\u2588\u2557 \u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2588\u2557  \u2588\u2588\u2551        \u2588\u2588\u2551       \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2551\n\u2588\u2588\u2551     \u2588\u2588\u2551   \u2588\u2588\u2551\u2588\u2588\u2551\u255a\u2588\u2588\u2557\u2588\u2588\u2551\u2588\u2588\u2551\u255a\u2588\u2588\u2557\u2588\u2588\u2551\u2588\u2588\u2554\u2550\u2550\u255d  \u2588\u2588\u2551        \u2588\u2588\u2551       \u255a\u2550\u2550\u2550\u2550\u2588\u2588\u2551\n\u255a\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u255a\u2588\u2588\u2588\u2588\u2588\u2588\u2554\u255d\u2588\u2588\u2551 \u255a\u2588\u2588\u2588\u2588\u2551\u2588\u2588\u2551 \u255a\u2588\u2588\u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u255a\u2588\u2588\u2588\u2588\u2588\u2588\u2557   \u2588\u2588\u2551            \u2588\u2588\u2551\n \u255a\u2550\u2550\u2550\u2550\u2550\u255d \u255a\u2550\u2550\u2550\u2550\u2550\u255d \u255a\u2550\u255d  \u255a\u2550\u2550\u2550\u255d\u255a\u2550\u255d  \u255a\u2550\u2550\u2550\u255d\u255a\u2550\u2550\u2550\u2550\u2550\u2550\u255d \u255a\u2550\u2550\u2550\u2550\u2550\u255d   \u255a\u2550\u255d            \u255a\u2550\u255d\n"+GameVersion+"                                                                          \n"; 
         
         static void Main()
         {
+            Console.Title = "Connect 4";
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(GameTitle);
+            Console.ResetColor();
             ConsoleLoader loader = new ConsoleLoader();
             loader.ShowLoader("Loading: ", 3);
             // Load settings once and keep them in memory
@@ -36,6 +40,7 @@ namespace NemLinha_Projeto
                 LanguageManager.Translate("continue"),
                 LanguageManager.Translate("players"),
                 LanguageManager.Translate("options"),
+                LanguageManager.Translate("credits"),
                 LanguageManager.Translate("exit") };
             int selectedIndex = menus.ShowMenu(menuOptions,LanguageManager.Translate("main_menu"),0,null,true,-1,GameTitle);
 
@@ -72,6 +77,9 @@ namespace NemLinha_Projeto
                         break;
                     case 3:
                         OptionsMenu();
+                        break;
+                    case 4 :
+                        CreditsMenu();
                         break;
                     default:
                         Console.WriteLine($"ERRO: {menuOptions[selectedIndex]}");
@@ -319,7 +327,7 @@ namespace NemLinha_Projeto
                     break;
                 
                 case 4:
-                    settings.Language = "d";
+                    settings.Language = "de";
                     break;
                 
                 case 5:
@@ -341,6 +349,66 @@ namespace NemLinha_Projeto
             // Change the language in the LanguageManager
             LanguageManager.ChangeLanguage(settings.Language);
         }
+
+        static void CreditsMenu()
+        {
+            string soundFilePath = "Credits.wav";
+
+            SoundPlayer soundPlayer=null;
+            
+            // Check if the file exists
+            if (System.IO.File.Exists(soundFilePath))
+            {
+                // Create a SoundPlayer instance with the sound file path
+                soundPlayer = new SoundPlayer(soundFilePath);
+
+                // Play the sound
+                soundPlayer.PlayLooping();
+            }
+
+            Console.Clear();
+            Console.WriteLine(GameTitle);
+            
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("╔═════════════════════════════════════════════════════════════════════════╗");
+            Console.WriteLine($"║{' ',33}CREDITS{' ',33}║");
+            Console.WriteLine("╚═════════════════════════════════════════════════════════════════════════╝\n");
+
+            Console.ResetColor();
+            Console.WriteLine("Developed by:");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Mário Santos");
+            Console.WriteLine("Cláudio Ferreira");
+            Console.WriteLine("Tomás Ferreira");
+
+            Console.ResetColor();
+            Console.WriteLine("\nSpecial Thanks to:");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("Team Members");
+
+            Console.ResetColor();
+            Console.WriteLine("\nLibraries and Frameworks:");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(".NET 8 Core");
+            Console.WriteLine(".NET framework 3.5");
+            Console.WriteLine("ConsoleGUI Library");
+            Console.WriteLine("JSON Library");
+
+            Console.ResetColor();
+            Console.WriteLine("\nArtwork and Design:");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("ASCII Art by Mário Santos");
+
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("═══════════════════════════════════════════════════════════════════════════");
+            Console.ResetColor();
+            Console.WriteLine(LanguageManager.Translate("press_any_key_to_continue"));
+            Console.ReadKey();
+            soundPlayer?.Stop();
+            DrawMainMenu();
+        }
+
         
         public static LanguageManager LanguageManager
         {

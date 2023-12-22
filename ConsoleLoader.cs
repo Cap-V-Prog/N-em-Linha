@@ -22,9 +22,15 @@ namespace NemLinha_Projeto
                 string progressBar = new string(_progressBarChar, progressLength) +
                                      new string(_emptyProgressBarChar, ProgressBarLength - progressLength);
 
-                Console.Write($"\r[{progressBar}] {Math.Round(percentage * 100)}%");
+                if (percentage == 1)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                }
+                Console.Write($"\r|{progressBar}| {Math.Round(percentage * 100)}%");
                 int randomTime = random.Next(100, 1000);
                 Thread.Sleep(randomTime);
+                
+                Console.ResetColor();
 
                 if (i == totalItems)
                 {

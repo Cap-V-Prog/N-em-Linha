@@ -58,13 +58,18 @@
       <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
-      <Content Include="bin\Debug\lang\d.json" />
+      <Content Include="bin\Debug\Credits.mp3" />
+      <Content Include="bin\Debug\data\arpeggiator-end-credits-wav-14644.mp3" />
+      <Content Include="bin\Debug\lang\de.json" />
       <Content Include="bin\Debug\lang\en.json" />
       <Content Include="bin\Debug\lang\es.json" />
       <Content Include="bin\Debug\lang\fr.json" />
       <Content Include="bin\Debug\lang\it.json" />
       <Content Include="bin\Debug\lang\pt.json" />
       <Content Include="bin\Debug\lang\ru.json" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="bin\Debug\data\" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
