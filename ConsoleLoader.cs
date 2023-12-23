@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace NemLinha_Projeto
 {
     public class ConsoleLoader
     {
-        private const int ProgressBarLength = 72;
-        private readonly char _progressBarChar = '\u2588';
-        private readonly char _emptyProgressBarChar = '\u25a0';
+        private readonly int ProgressBarLength = 72;
+        private readonly char ProgressBarChar = '\u2588';
+        private readonly char EmptyProgressBarChar = '\u25a0';
+
+        private int overallProgress = 0;
 
         public void ShowLoader(string message, int totalItems,int itemsLoaded)
         {
@@ -15,20 +20,28 @@ namespace NemLinha_Projeto
             double percentage = (double)itemsLoaded / totalItems;
             int progressLength = (int)(percentage * ProgressBarLength);
 
-            string progressBar = new string(_progressBarChar, progressLength) +
-                                     new string(_emptyProgressBarChar, ProgressBarLength - progressLength);
+            string progressBar = new string(ProgressBarChar, progressLength) +
+                                 new string(EmptyProgressBarChar, ProgressBarLength - progressLength);
 
             if (itemsLoaded == totalItems)
             {
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
             }
-            Console.Write($"\r|{progressBar}| {Math.Round(percentage * 100)}%");
+            Console.Write($"\r|{progressBar}| {Math.Round(percentage * 100)}%\n");
                 
             Console.ResetColor();
+        }
 
-            if (itemsLoaded == totalItems)
+        public async Task ExecuteTasks(List<Func<Task>> tasks)
+        {
+            for (int i = 0; i < tasks.Count; i++)
             {
-                Console.WriteLine("\n");
+                Console.Clear();
+                await Program.ExecuteTask($"", tasks[i]);
+                ShowLoader("",tasks.Count,i+1);
+                Console.WriteLine($"Task Progress: {i + 1}/{tasks.Count}\n");
+                //ensure all is done
+                Thread.Sleep(100);
             }
         }
     }

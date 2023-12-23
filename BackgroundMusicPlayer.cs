@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Threading.Tasks;
 using NAudio.Wave;
-
 
 namespace NemLinha_Projeto
 {
@@ -13,8 +11,8 @@ namespace NemLinha_Projeto
         private Dictionary<string, string> musicUrls = new Dictionary<string, string>();
         private const string CacheFolder = "MusicCache";
 
-        private WaveOutEvent waveOutEvent;
-        private WaveFileReader waveFileReader;
+        private IWavePlayer waveOutEvent;
+        private AudioFileReader audioFileReader;
 
         public BackgroundMusicPlayer()
         {
@@ -63,9 +61,9 @@ namespace NemLinha_Projeto
             }
 
             waveOutEvent = new WaveOutEvent();
-            waveFileReader = new WaveFileReader(localFilePath);
+            audioFileReader = new AudioFileReader(localFilePath);
 
-            waveOutEvent.Init(waveFileReader);
+            waveOutEvent.Init(audioFileReader);
             waveOutEvent.Play();
         }
 
@@ -74,12 +72,12 @@ namespace NemLinha_Projeto
             waveOutEvent?.Stop();
             waveOutEvent?.Dispose();
 
-            waveFileReader?.Dispose();
+            audioFileReader?.Dispose();
         }
 
         private string GetLocalFilePath(string menuName)
         {
-            return Path.Combine(CacheFolder, $"{menuName}_background_music.wav");
+            return Path.Combine(CacheFolder, $"{menuName}_background_music.mp3");
         }
     }
 }
