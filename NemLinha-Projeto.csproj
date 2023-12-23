@@ -74,6 +74,7 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="BackgroundMusicPlayer.cs" />
         <Compile Include="ConsoleLoader.cs" />
         <Compile Include="Game.cs" />
         <Compile Include="Grid.cs" />

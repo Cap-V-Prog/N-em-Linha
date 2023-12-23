@@ -1,29 +1,27 @@
 ﻿using System;
 using System.Threading;
-using System.Media;
+using System.Threading.Tasks;
+
 
 namespace NemLinha_Projeto
 {
     class Program
     {
         private static LanguageManager _languageManager;
-        private const string GameVersion = "V0.16a";
+        private const string GameVersion = "V0.17b";
         private const string GameTitle="\n \u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2557   \u2588\u2588\u2557\u2588\u2588\u2588\u2557   \u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557    \u2588\u2588\u2557  \u2588\u2588\u2557\n\u2588\u2588\u2554\u2550\u2550\u2550\u2550\u255d\u2588\u2588\u2554\u2550\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2557  \u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2557  \u2588\u2588\u2551\u2588\u2588\u2554\u2550\u2550\u2550\u2550\u255d\u2588\u2588\u2554\u2550\u2550\u2550\u2550\u255d\u255a\u2550\u2550\u2588\u2588\u2554\u2550\u2550\u255d    \u2588\u2588\u2551  \u2588\u2588\u2551\n\u2588\u2588\u2551     \u2588\u2588\u2551   \u2588\u2588\u2551\u2588\u2588\u2554\u2588\u2588\u2557 \u2588\u2588\u2551\u2588\u2588\u2554\u2588\u2588\u2557 \u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2588\u2557  \u2588\u2588\u2551        \u2588\u2588\u2551       \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2551\n\u2588\u2588\u2551     \u2588\u2588\u2551   \u2588\u2588\u2551\u2588\u2588\u2551\u255a\u2588\u2588\u2557\u2588\u2588\u2551\u2588\u2588\u2551\u255a\u2588\u2588\u2557\u2588\u2588\u2551\u2588\u2588\u2554\u2550\u2550\u255d  \u2588\u2588\u2551        \u2588\u2588\u2551       \u255a\u2550\u2550\u2550\u2550\u2588\u2588\u2551\n\u255a\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u255a\u2588\u2588\u2588\u2588\u2588\u2588\u2554\u255d\u2588\u2588\u2551 \u255a\u2588\u2588\u2588\u2588\u2551\u2588\u2588\u2551 \u255a\u2588\u2588\u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u255a\u2588\u2588\u2588\u2588\u2588\u2588\u2557   \u2588\u2588\u2551            \u2588\u2588\u2551\n \u255a\u2550\u2550\u2550\u2550\u2550\u255d \u255a\u2550\u2550\u2550\u2550\u2550\u255d \u255a\u2550\u255d  \u255a\u2550\u2550\u2550\u255d\u255a\u2550\u255d  \u255a\u2550\u2550\u2550\u255d\u255a\u2550\u2550\u2550\u2550\u2550\u2550\u255d \u255a\u2550\u2550\u2550\u2550\u2550\u255d   \u255a\u2550\u255d            \u255a\u2550\u255d\n"+GameVersion+"                                                                          \n"; 
-        
+        static BackgroundMusicPlayer musicPlayer = new BackgroundMusicPlayer();
+        static ConsoleLoader loader = new ConsoleLoader();
+        private static Settings settings;
+        private static Menus menus;
         static void Main()
         {
             Console.Title = "Connect 4";
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(GameTitle);
-            Console.ResetColor();
-            ConsoleLoader loader = new ConsoleLoader();
-            loader.ShowLoader("Loading: ", 3);
-            // Load settings once and keep them in memory
-            Settings settings = Settings.LoadSettings();
-    
-            // Create a LanguageManager with the default language from the settings
-            _languageManager = new LanguageManager(settings.Language);
             
+            musicPlayer.AddMusic("Credits", "https://cdn.discordapp.com/attachments/1049087575249399849/1187825231797178448/Credits.wav?ex=65984b73&is=6585d673&hm=84b7bfee09493bf050da1b87d071345d69f54b4e389411d662d1201514e5ff54&");
+            musicPlayer.AddMusic("MainMenu", "https://cdn.discordapp.com/attachments/1137832862406688800/1187884890457382943/titanium-170190.mp3?ex=65988303&is=65860e03&hm=c6ac3a4454c471fd84f87c2d33ba8ad86dc63b475272f403f141185da8a3bd42&");
+            
+            LoadingScreen();
             Console.WriteLine(LanguageManager.Translate("loading_complete"));
             Console.WriteLine(LanguageManager.Translate("press_any_key_to_continue"));
             Console.ReadKey();
@@ -32,8 +30,6 @@ namespace NemLinha_Projeto
 
         static void DrawMainMenu()
         {
-            Menus menus = new Menus();
-            
             Console.CursorVisible = false;
             
             string[] menuOptions = { LanguageManager.Translate("new_game"),
@@ -352,20 +348,8 @@ namespace NemLinha_Projeto
 
         static void CreditsMenu()
         {
-            string soundFilePath = "Credits.wav";
-
-            SoundPlayer soundPlayer=null;
+            musicPlayer.PlayMusic("Credits");
             
-            // Check if the file exists
-            if (System.IO.File.Exists(soundFilePath))
-            {
-                // Create a SoundPlayer instance with the sound file path
-                soundPlayer = new SoundPlayer(soundFilePath);
-
-                // Play the sound
-                soundPlayer.PlayLooping();
-            }
-
             Console.Clear();
             Console.WriteLine(GameTitle);
             
@@ -405,8 +389,27 @@ namespace NemLinha_Projeto
             Console.ResetColor();
             Console.WriteLine(LanguageManager.Translate("press_any_key_to_continue"));
             Console.ReadKey();
-            soundPlayer?.Stop();
+            musicPlayer.StopMusic();
             DrawMainMenu();
+        }
+        
+        static void LoadingScreen()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(GameTitle);
+            Console.ResetColor();
+            loader.ShowLoader("", 5,0);
+            musicPlayer.DownloadMusicAsync("MainMenu");
+            loader.ShowLoader("", 5,1);
+            musicPlayer.DownloadMusicAsync("Credits");
+            loader.ShowLoader("", 5,2);
+            settings = Settings.LoadSettings();
+            loader.ShowLoader("", 5,3);
+            menus = new Menus();
+            loader.ShowLoader("", 5,4);
+            _languageManager = new LanguageManager(settings.Language);
+            loader.ShowLoader("", 5,5);
         }
 
         

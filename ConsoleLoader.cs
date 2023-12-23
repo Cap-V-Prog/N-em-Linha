@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 
 namespace NemLinha_Projeto
 {
@@ -9,33 +8,27 @@ namespace NemLinha_Projeto
         private readonly char _progressBarChar = '\u2588';
         private readonly char _emptyProgressBarChar = '\u25a0';
 
-        public void ShowLoader(string message, int totalItems)
+        public void ShowLoader(string message, int totalItems,int itemsLoaded)
         {
-            Random random = new Random();
             Console.Write(message);
+            
+            double percentage = (double)itemsLoaded / totalItems;
+            int progressLength = (int)(percentage * ProgressBarLength);
 
-            for (int i = 0; i <= totalItems; i++)
-            {
-                double percentage = (double)i / totalItems;
-                int progressLength = (int)(percentage * ProgressBarLength);
-
-                string progressBar = new string(_progressBarChar, progressLength) +
+            string progressBar = new string(_progressBarChar, progressLength) +
                                      new string(_emptyProgressBarChar, ProgressBarLength - progressLength);
 
-                if (percentage == 1)
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                }
-                Console.Write($"\r|{progressBar}| {Math.Round(percentage * 100)}%");
-                int randomTime = random.Next(100, 1000);
-                Thread.Sleep(randomTime);
+            if (itemsLoaded == totalItems)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+            }
+            Console.Write($"\r|{progressBar}| {Math.Round(percentage * 100)}%");
                 
-                Console.ResetColor();
+            Console.ResetColor();
 
-                if (i == totalItems)
-                {
-                    Console.WriteLine("\n");
-                }
+            if (itemsLoaded == totalItems)
+            {
+                Console.WriteLine("\n");
             }
         }
     }
