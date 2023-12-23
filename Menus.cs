@@ -15,9 +15,10 @@ namespace NemLinha_Projeto
         
         public int ShowMenu(string[] options, string menuTitle = "MENU", int style = 1, string specialText = null, bool spaceExit = true, int highlightedIndex = -1, string gameTitle=null)
         {
+            bool looping = true;
             int selectedIndex = 0;
 
-            while (true)
+            while (looping)
             {
                 Console.Clear();
                 if (gameTitle != null)
@@ -87,9 +88,12 @@ namespace NemLinha_Projeto
                         selectedIndex = (selectedIndex + 1) % options.Length;
                         break;
                     case ConsoleKey.Enter:
+                        looping = false;
                         return selectedIndex;
                 }
             }
+
+            return selectedIndex;
         }
 
 

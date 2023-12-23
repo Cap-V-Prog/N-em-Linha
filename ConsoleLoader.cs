@@ -7,21 +7,19 @@ namespace NemLinha_Projeto
 {
     public class ConsoleLoader
     {
-        private readonly int ProgressBarLength = 72;
-        private readonly char ProgressBarChar = '\u2588';
-        private readonly char EmptyProgressBarChar = '\u25a0';
-
-        private int overallProgress = 0;
+        private readonly int _progressBarLength = 72;
+        private readonly char _progressBarChar = '\u2588';
+        private readonly char _emptyProgressBarChar = '\u25a0';
 
         public void ShowLoader(string message, int totalItems,int itemsLoaded)
         {
             Console.Write(message);
             
             double percentage = (double)itemsLoaded / totalItems;
-            int progressLength = (int)(percentage * ProgressBarLength);
+            int progressLength = (int)(percentage * _progressBarLength);
 
-            string progressBar = new string(ProgressBarChar, progressLength) +
-                                 new string(EmptyProgressBarChar, ProgressBarLength - progressLength);
+            string progressBar = new string(_progressBarChar, progressLength) +
+                                 new string(_emptyProgressBarChar, _progressBarLength - progressLength);
 
             if (itemsLoaded == totalItems)
             {
