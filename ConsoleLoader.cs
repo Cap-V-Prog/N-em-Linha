@@ -37,6 +37,10 @@ namespace NemLinha_Projeto
             for (int i = 0; i < tasks.Count; i++)
             {
                 Console.Clear();
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine(Program.GameTitle);
+                Console.ResetColor();
                 await Program.ExecuteTask($"", tasks[i]);
                 ShowLoader("",tasks.Count,i+1);
                 Console.WriteLine($"Task Progress: {i + 1}/{tasks.Count}\n");
