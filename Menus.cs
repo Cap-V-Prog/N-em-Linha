@@ -15,15 +15,21 @@ namespace NemLinha_Projeto
         
         public int ShowMenu(string[] options, string menuTitle = "MENU", int style = 1, string specialText = null, bool spaceExit = true, int highlightedIndex = -1, string gameTitle=null)
         {
-            bool looping = true;
             int selectedIndex = 0;
 
-            while (looping)
+            while (true)
             {
                 Console.Clear();
                 if (gameTitle != null)
                 {
                     Console.WriteLine(gameTitle);
+                    // Display DEBUG above the title if debug mode is enabled
+                    if (Program.DebugMode)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        Console.WriteLine("DEBUG");
+                        Console.ResetColor();
+                    }
                 }
                 Console.WriteLine($"{MenuStyles(menuTitle, style)}\n");
 
@@ -88,12 +94,9 @@ namespace NemLinha_Projeto
                         selectedIndex = (selectedIndex + 1) % options.Length;
                         break;
                     case ConsoleKey.Enter:
-                        looping = false;
                         return selectedIndex;
                 }
             }
-
-            return selectedIndex;
         }
 
 

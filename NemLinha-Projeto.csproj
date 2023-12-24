@@ -13,6 +13,7 @@
         <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+        <ApplicationIcon>ico.ico</ApplicationIcon>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -87,10 +88,11 @@
         <Compile Include="Settings.cs" />
     </ItemGroup>
     <ItemGroup>
+      <None Include="ico.ico" />
+      <None Include="ico.svg" />
       <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
-      <Content Include="bin\Debug\Credits.mp3" />
       <Content Include="bin\Debug\data\arpeggiator-end-credits-wav-14644.mp3" />
       <Content Include="bin\Debug\lang\de.json" />
       <Content Include="bin\Debug\lang\en.json" />
