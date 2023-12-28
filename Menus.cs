@@ -87,13 +87,23 @@ namespace NemLinha_Projeto
                 {
                     case ConsoleKey.W:
                     case ConsoleKey.UpArrow:
+                        Program.SfXPlayerManager.PlaySoundEffect("NavigationMenu");
                         selectedIndex = (selectedIndex - 1 + options.Length) % options.Length;
                         break;
                     case ConsoleKey.S:
                     case ConsoleKey.DownArrow:
+                        Program.SfXPlayerManager.PlaySoundEffect("NavigationMenu");
                         selectedIndex = (selectedIndex + 1) % options.Length;
                         break;
                     case ConsoleKey.Enter:
+                        if (options.Length - 1 != selectedIndex)
+                        {
+                            Program.SfXPlayerManager.PlaySoundEffect("SelectMenu");
+                        }
+                        else
+                        {
+                            Program.SfXPlayerManager.PlaySoundEffect("BackMenu");
+                        }
                         return selectedIndex;
                 }
             }

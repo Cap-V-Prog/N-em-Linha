@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
 
 namespace NemLinha_Projeto
 {
-    public class BackgroundMusicPlayer : IDisposable
+    public class MusicPlayerManager
     {
         // Dictionary to store menu names and their corresponding music URLs
         private readonly Dictionary<string, string> _musicUrls = new Dictionary<string, string>();
@@ -15,22 +16,61 @@ namespace NemLinha_Projeto
         private const string CacheFolder = "MusicCache";
         
         // NAudio objects for playing audio
-        private IWavePlayer _waveOutEvent;
-        private WaveStream _audioFileReader;
-
+        private IWavePlayer _backgroundWaveOutEvent;
+        private WaveStream _backgroundAudioFileReader;
+        private DynamicVolumeSampleProvider _dynamicVolumeSampleProvider;
+        private float _backgroundMusicVolume=0f; // Default volume is 100%
+        
         // Constructor to ensure the cache folder exists
-        public BackgroundMusicPlayer()
+        public MusicPlayerManager(float backgroundMusicDefaultVolume)
         {
             // Ensure the cache folder exists
+            _backgroundMusicVolume = backgroundMusicDefaultVolume;
             Directory.CreateDirectory(CacheFolder);
         }
-
+        
         // Add a menu and its associated music URL to the dictionary
         public void AddMusic(string menuName, string musicUrl)
         {
             _musicUrls[menuName] = musicUrl;
         }
+        
+        // Play the music for a specific menu
+        public void PlayMusic(string menuName)
+        {
+            // Stop the currently playing music before starting a new one
+            StopMusic();
 
+            if (!_musicUrls.ContainsKey(menuName))
+            {
+                Console.WriteLine($"No music URL found for menu: {menuName}");
+                return;
+            }
+
+            string localFilePath = GetLocalFilePath(menuName);
+
+            if (!File.Exists(localFilePath))
+            {
+                Console.WriteLine($"Music file not found for menu: {menuName}. Please download it first.");
+                return;
+            }
+
+            _backgroundWaveOutEvent = new WaveOutEvent();
+            var originalSampleProvider = GetSampleProvider(localFilePath);
+            _dynamicVolumeSampleProvider = new DynamicVolumeSampleProvider(originalSampleProvider);
+            _dynamicVolumeSampleProvider.Volume = _backgroundMusicVolume;
+            
+            if (_dynamicVolumeSampleProvider != null)
+            {
+                _backgroundWaveOutEvent.Init(_dynamicVolumeSampleProvider);
+                _backgroundWaveOutEvent.Play();
+            }
+            else
+            {
+                Console.WriteLine($"Failed to create SampleProvider for SFX file: {localFilePath}");
+            }
+        }
+        
         // Download music file for a specific menu
         public void DownloadMusic(string menuName)
         {
@@ -91,67 +131,47 @@ namespace NemLinha_Projeto
                 }
             }
         }
-
-        // Play the music for a specific menu
-        public void PlayMusic(string menuName)
-        {
-            if (!_musicUrls.ContainsKey(menuName))
-            {
-                Console.WriteLine($"No music URL found for menu: {menuName}");
-                return;
-            }
-
-            string localFilePath = GetLocalFilePath(menuName);
-
-            if (!File.Exists(localFilePath))
-            {
-                Console.WriteLine($"Music file not found for menu: {menuName}. Please download it first.");
-                return;
-            }
-
-            _waveOutEvent = new WaveOutEvent();
-
-            // Determine the WaveStream based on the file extension
-            WaveStream waveStream = GetWaveStream(localFilePath);
-
-            if (waveStream != null)
-            {
-                _audioFileReader = waveStream;
-                _waveOutEvent.Init(_audioFileReader);
-                _waveOutEvent.Play();
-            }
-            else
-            {
-                Console.WriteLine($"Failed to create WaveStream for file: {localFilePath}");
-            }
-        }
-
-        // Get the WaveStream based on the file extension
-        private WaveStream GetWaveStream(string filePath)
+        
+        private ISampleProvider GetSampleProvider(string filePath)
         {
             string fileExtension = Path.GetExtension(filePath);
 
             switch (fileExtension.ToLower())
             {
                 case ".mp3":
-                    return new Mp3FileReader(filePath);
+                    return new SampleChannel(new Mp3FileReader(filePath));
                 case ".wav":
-                    return new WaveFileReader(filePath);
+                    return new SampleChannel(new WaveFileReader(filePath));
+                // Add more cases for other supported file formats if needed
                 default:
                     Console.WriteLine($"Unsupported file format: {fileExtension}");
                     return null;
             }
         }
-
-        // Stop playing the currently playing music
+        
+        // Set the volume for background music without playing
+        public void SetBackgroundMusicVolume(float volume)
+        {
+            if (_dynamicVolumeSampleProvider != null)
+            {
+                _dynamicVolumeSampleProvider.Volume = volume;
+                _backgroundMusicVolume = volume;
+            }
+            else
+            {
+                Console.WriteLine("No music is currently playing.");
+            }
+        }
+        
+        // Stop playing the currently playing background music
         public void StopMusic()
         {
-            _waveOutEvent?.Stop();
-            _waveOutEvent?.Dispose();
+            _backgroundWaveOutEvent?.Stop();
+            _backgroundWaveOutEvent?.Dispose();
 
-            _audioFileReader?.Dispose();
+            _backgroundAudioFileReader?.Dispose();
         }
-
+        
         // Get the local file path for a menu's background music
         private string GetLocalFilePath(string menuName)
         {
@@ -168,12 +188,6 @@ namespace NemLinha_Projeto
             string fileNameWithoutQuery = Path.GetFileNameWithoutExtension(musicUri.LocalPath);
 
             return Path.Combine(CacheFolder, $"{fileNameWithoutQuery}_background_music{originalExtension}");
-        }
-        
-        // Implement IDisposable to clean up resources
-        public void Dispose()
-        {
-            StopMusic();
         }
     }
 }

@@ -8,39 +8,70 @@ namespace NemLinha_Projeto
     class Program
     {
         private static LanguageManager _languageManager;
-        private const string GameVersion = "V0.20b";
+        private const string GameVersion = "V0.22b";
         public const string GameTitle="\n \u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2557   \u2588\u2588\u2557\u2588\u2588\u2588\u2557   \u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557    \u2588\u2588\u2557  \u2588\u2588\u2557\n\u2588\u2588\u2554\u2550\u2550\u2550\u2550\u255d\u2588\u2588\u2554\u2550\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2557  \u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2557  \u2588\u2588\u2551\u2588\u2588\u2554\u2550\u2550\u2550\u2550\u255d\u2588\u2588\u2554\u2550\u2550\u2550\u2550\u255d\u255a\u2550\u2550\u2588\u2588\u2554\u2550\u2550\u255d    \u2588\u2588\u2551  \u2588\u2588\u2551\n\u2588\u2588\u2551     \u2588\u2588\u2551   \u2588\u2588\u2551\u2588\u2588\u2554\u2588\u2588\u2557 \u2588\u2588\u2551\u2588\u2588\u2554\u2588\u2588\u2557 \u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2588\u2557  \u2588\u2588\u2551        \u2588\u2588\u2551       \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2551\n\u2588\u2588\u2551     \u2588\u2588\u2551   \u2588\u2588\u2551\u2588\u2588\u2551\u255a\u2588\u2588\u2557\u2588\u2588\u2551\u2588\u2588\u2551\u255a\u2588\u2588\u2557\u2588\u2588\u2551\u2588\u2588\u2554\u2550\u2550\u255d  \u2588\u2588\u2551        \u2588\u2588\u2551       \u255a\u2550\u2550\u2550\u2550\u2588\u2588\u2551\n\u255a\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u255a\u2588\u2588\u2588\u2588\u2588\u2588\u2554\u255d\u2588\u2588\u2551 \u255a\u2588\u2588\u2588\u2588\u2551\u2588\u2588\u2551 \u255a\u2588\u2588\u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u255a\u2588\u2588\u2588\u2588\u2588\u2588\u2557   \u2588\u2588\u2551            \u2588\u2588\u2551\n \u255a\u2550\u2550\u2550\u2550\u2550\u255d \u255a\u2550\u2550\u2550\u2550\u2550\u255d \u255a\u2550\u255d  \u255a\u2550\u2550\u2550\u255d\u255a\u2550\u255d  \u255a\u2550\u2550\u2550\u255d\u255a\u2550\u2550\u2550\u2550\u2550\u2550\u255d \u255a\u2550\u2550\u2550\u2550\u2550\u255d   \u255a\u2550\u255d            \u255a\u2550\u255d\n"+GameVersion+"                                                                          \n"; 
-        private static BackgroundMusicPlayer _musicPlayer = new BackgroundMusicPlayer();
+        private static SfxPlayerManager _sFxPlayerManager;
+        private static MusicPlayerManager _musicPlayerManager;
+        private static VolumeBarMenu _volumeBarMenu;
         private static Settings _settings;
         private static Menus _menus;
         private static bool _debugModeEnabled;
         
         public static LanguageManager LanguageManager => _languageManager;
+        public static SfxPlayerManager SfXPlayerManager => _sFxPlayerManager;
+
+        public static MusicPlayerManager MusicPlayerManager => _musicPlayerManager;
+        
+        public static Settings Settings => _settings;
         
         static void Main()
         {
             Console.Title = "Connect 4";
             
-            _musicPlayer.AddMusic("Credits", "https://cdn.discordapp.com/attachments/1049087575249399849/1187825231797178448/Credits.wav?ex=65984b73&is=6585d673&hm=84b7bfee09493bf050da1b87d071345d69f54b4e389411d662d1201514e5ff54&");
-            _musicPlayer.AddMusic("MainMenu", "https://cdn.discordapp.com/attachments/1137832862406688800/1188173526549663854/space-invaders-classic-arcade-game-116826.mp3?ex=65998fd3&is=65871ad3&hm=8a4b1bff6188d5328281f73daad69258f2d59d3c9f5b4548f579e5f062404beb&");
-            
             List<Func<Task>> tasks = new List<Func<Task>>
             {
-                () => ExecuteTask("Getting \"MainMenu\" music", () => { _musicPlayer.DownloadMusic("MainMenu");
-                    return Task.CompletedTask;
-                }),
-                () => ExecuteTask("Getting \"Credits\" music", () => { _musicPlayer.DownloadMusic("Credits");
-                    return Task.CompletedTask;
-                }),
                 () => ExecuteTask("Loading settings", () => { _settings = Settings.LoadSettings();
+                    return Task.CompletedTask;
+                }),
+                () => ExecuteTask("Setting SFX player", () => { _sFxPlayerManager = new SfxPlayerManager(_settings.SfxVolume);
+                        return Task.CompletedTask;
+                }),
+                () => ExecuteTask("Setting music player", () => { _musicPlayerManager = new MusicPlayerManager(_settings.MusicVolume);
+                    return Task.CompletedTask;
+                }),
+                () => ExecuteTask("Caching the sounds", () => { _musicPlayerManager.AddMusic("MainMenu", "https://cdn.discordapp.com/attachments/938557421218066462/1189316969342709891/space-invaders-classic-arcade-game-116826.mp3?ex=659db8bd&is=658b43bd&hm=824b39c08a3a1e035bd5f7d9c7e5da542d14042a8def2dca4ec8baefad88c4dd&");
+                    _musicPlayerManager.AddMusic("Credits", "https://cdn.discordapp.com/attachments/1049087575249399849/1187825231797178448/Credits.wav?ex=65984b73&is=6585d673&hm=84b7bfee09493bf050da1b87d071345d69f54b4e389411d662d1201514e5ff54&");
+                    _sFxPlayerManager.AddSfx("NavigationMenu", "https://cdn.discordapp.com/attachments/1137832862406688800/1188886682708222012/Retro5.mp3?ex=659c2801&is=6589b301&hm=9e3cf4ff431d16bfec13f994c6f0052ae74c6e831077ff8fb576dfda6f060ab4&");
+                    _sFxPlayerManager.AddSfx("SelectMenu", "https://cdn.discordapp.com/attachments/1137832862406688800/1188886683018596403/Retro7.mp3?ex=659c2801&is=6589b301&hm=4a3cbca381da2b573ba5ed2ee843192b01d24eb78f39c2dae1d6c5b4d82ca9a6&");
+                    _sFxPlayerManager.AddSfx("BackMenu", "https://cdn.discordapp.com/attachments/1189786476653854760/1189786569024999444/Retro4.mp3?ex=659f6e17&is=658cf917&hm=2f71de70f3c63b53971997c5bf4d0e7d4dfd6af503fb591634ac245ba22d33bc&");
+                    _sFxPlayerManager.AddSfx("SuccessMenu", "https://cdn.discordapp.com/attachments/1189786476653854760/1189786785253957662/Retro9.mp3?ex=659f6e4a&is=658cf94a&hm=b30e35cdc13677e2e0362c1738e69127ca4225ceb66de4f5a76557850a7055ac&");
+                    return Task.CompletedTask;
+                }),
+                () => ExecuteTask("Getting \"MainMenu\" music", () => { _musicPlayerManager.DownloadMusic("MainMenu");
+                    return Task.CompletedTask;
+                }),
+                () => ExecuteTask("Getting \"Credits\" music", () => { _musicPlayerManager.DownloadMusic("Credits");
+                    return Task.CompletedTask;
+                }),
+                () => ExecuteTask("Getting \"NavigationMenu\" sound", () => { _sFxPlayerManager.DownloadSfx("NavigationMenu");
+                    return Task.CompletedTask;
+                }),
+                () => ExecuteTask("Getting \"SelectMenu\" sound", () => { _sFxPlayerManager.DownloadSfx("SelectMenu");
+                    return Task.CompletedTask;
+                }),
+                () => ExecuteTask("Getting \"BackMenu\" sound", () => { _sFxPlayerManager.DownloadSfx("BackMenu");
                     return Task.CompletedTask;
                 }),
                 () => ExecuteTask("Generating menus", () => { _menus = new Menus();
                     return Task.CompletedTask;
                 }),
+                () => ExecuteTask("Generating more menus", () => { _volumeBarMenu = new VolumeBarMenu();
+                    return Task.CompletedTask;
+                }),
                 () => ExecuteTask("Setting the language", () => { _languageManager = new LanguageManager(_settings.Language);
                     return Task.CompletedTask;
                 })
+                
             };
 
             ConsoleLoader loader = new ConsoleLoader();
@@ -54,8 +85,8 @@ namespace NemLinha_Projeto
 
         static void DrawMainMenu()
         {
-            _musicPlayer.StopMusic();
-            _musicPlayer.PlayMusic("MainMenu");
+            _musicPlayerManager.StopMusic();
+            _musicPlayerManager.PlayMusic("MainMenu");
             Console.CursorVisible = false;
             
             string[] menuOptions = { LanguageManager.Translate("new_game"),
@@ -64,7 +95,7 @@ namespace NemLinha_Projeto
                 LanguageManager.Translate("options"),
                 LanguageManager.Translate("credits"),
                 LanguageManager.Translate("exit") };
-            int selectedIndex = _menus.ShowMenu(menuOptions,LanguageManager.Translate("main_menu"),0,null,true,-1,GameTitle);
+            int selectedIndex = _menus.ShowMenu(menuOptions,LanguageManager.Translate("main_menu"),0,_debugModeEnabled?$"Current music volume: {_settings.MusicVolume}\nCurrent SFX volume: {_settings.SfxVolume}":null,true,-1,GameTitle);
 
             if (selectedIndex == menuOptions.Length - 1)
             {
@@ -98,7 +129,7 @@ namespace NemLinha_Projeto
                         DrawPlayerMenu();
                         break;
                     case 3:
-                        OptionsMenu();
+                        DrawOptionsMenu();
                         break;
                     case 4 :
                         CreditsMenu();
@@ -275,10 +306,10 @@ namespace NemLinha_Projeto
             Environment.Exit(0);
         }
         
-        private static void OptionsMenu()
+        private static void DrawOptionsMenu()
         {
             string[] optionsMenuOptions = { _languageManager.Translate("language"),
-                _languageManager.Translate("color"), 
+                _languageManager.Translate("sound"), 
                 _languageManager.Translate("back") };
             int selectedIndex = _menus.ShowMenu(optionsMenuOptions, _languageManager.Translate("options"), 0);
 
@@ -290,18 +321,14 @@ namespace NemLinha_Projeto
             switch (selectedIndex)
             {
                 case 0:
-                    // User selected "Linguagem" (Language)
-                    Console.Clear();
                     ShowLanguageOptions();
-                    Console.WriteLine(LanguageManager.Translate("press_any_key_to_continue"));
-                    Console.ReadKey();
-                    OptionsMenu();
                     break;
 
                 case 1:
-                    // User selected "Cor" (Color)
-                    Console.Clear();
                     //ShowColorOptions();
+                    _volumeBarMenu.DrawSoundMenu();
+                    _settings.SaveSettings();
+                    DrawOptionsMenu();
                     break;
 
                 default:
@@ -318,7 +345,7 @@ namespace NemLinha_Projeto
 
             if (selectedIndex == languageOptions.Length - 1)
             {
-                OptionsMenu();
+                DrawOptionsMenu();
             }
             
             // Update the language based on the user's selection
@@ -362,12 +389,16 @@ namespace NemLinha_Projeto
 
             // Change the language in the LanguageManager
             LanguageManager.ChangeLanguage(_settings.Language);
+            
+            Console.WriteLine(LanguageManager.Translate("press_any_key_to_continue"));
+            Console.ReadKey();
+            DrawOptionsMenu();
         }
 
         static void CreditsMenu()
         {
-            _musicPlayer.StopMusic();
-            _musicPlayer.PlayMusic("Credits");
+            _musicPlayerManager.StopMusic();
+            _musicPlayerManager.PlayMusic("Credits");
             
             Console.WriteLine(GameTitle);
             

@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "Name": "pedro",
+    "GamesPlayed": 0,
+    "Victories": 0
+  },
+  {
+    "Name": "jorge",
+    "GamesPlayed": 0,
+    "Victories": 0
+  }
+]

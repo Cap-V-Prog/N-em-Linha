@@ -30,6 +30,24 @@ namespace NemLinha_Projeto
             Console.ResetColor();
         }
 
+        private void DrawInfo()
+        {
+            Console.Clear();
+
+            // Display the game title
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(Program.GameTitle);
+            Console.ResetColor();
+
+            // Display DEBUG above the title if debug mode is enabled
+            if (Program.DebugMode)
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine("DEBUG");
+                Console.ResetColor();
+            }
+        }
+
         public async Task ExecuteTasks(List<Func<Task>> tasks)
         {
             for (int countdown = 3; countdown > 0; countdown--)
@@ -49,22 +67,12 @@ namespace NemLinha_Projeto
             // Loop through each task
             for (int i = 0; i < tasks.Count; i++)
             {
-                Console.Clear();
+                DrawInfo();
 
-                // Display the game title
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine(Program.GameTitle);
-                Console.ResetColor();
-
-                // Display DEBUG above the title if debug mode is enabled
-                if (Program.DebugMode)
-                {
-                    Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.WriteLine("DEBUG");
-                    Console.ResetColor();
-                }
-
+                Console.WriteLine("\n");
                 // Execute the current task and display loading progress
+                ShowLoader("", tasks.Count, i);
+                Console.SetCursorPosition(0, Console.CursorTop - 3);
                 await Program.ExecuteTask("", tasks[i]);
                 ShowLoader("", tasks.Count, i + 1);
 

@@ -8,6 +8,8 @@ namespace NemLinha_Projeto
     {
         // Properties for user preferences
         public string Language { get; set; }
+        public float MusicVolume { get; set; }
+        public float SfxVolume { get; set; }
         
         // Constant for the file path
         private const string SettingsFolderPath = "data";
@@ -16,6 +18,9 @@ namespace NemLinha_Projeto
         
         // Default language
         private const string DefaultLanguage = "en";
+        private const float DefaultMusicVolume = 0.0f;
+        private const float DefaultSfxVolume = 0.0f;
+
 
         // Static property to hold the loaded settings
         private static Settings _cachedSettings;
@@ -30,10 +35,18 @@ namespace NemLinha_Projeto
                     Directory.CreateDirectory(SettingsFolderPath);
                 }
 
-                // Set default language if not already set
+                // Set default language and volumes if not already set
                 if (string.IsNullOrEmpty(Language))
                 {
                     Language = DefaultLanguage;
+                }
+                if (MusicVolume == 0)
+                {
+                    MusicVolume = DefaultMusicVolume;
+                }
+                if (SfxVolume == 0)
+                {
+                    SfxVolume = DefaultSfxVolume;
                 }
 
                 string json = JsonConvert.SerializeObject(this, Formatting.Indented);
@@ -67,7 +80,11 @@ namespace NemLinha_Projeto
                 else
                 {
                     // If settings file doesn't exist, create a new instance with defaults
-                    _cachedSettings = new Settings();
+                    _cachedSettings = new Settings
+                    {
+                        MusicVolume = DefaultMusicVolume,
+                        SfxVolume = DefaultSfxVolume
+                    };
 
                     // Save the defaults to file
                     _cachedSettings.SaveSettings();
@@ -80,6 +97,16 @@ namespace NemLinha_Projeto
                 Console.WriteLine($"Error loading settings: {ex.Message}");
                 return new Settings(); // Return a new instance if there's an error
             }
+        }
+        
+        // Reset all user settings to their default values
+        public void ResetToDefault()
+        {
+            Language = DefaultLanguage;
+            MusicVolume = DefaultMusicVolume;
+            SfxVolume = DefaultSfxVolume;
+
+            SaveSettings(); // Save the changes to the settings file
         }
 
         // Clear the cached settings (force a reload)
