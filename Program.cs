@@ -68,7 +68,7 @@ namespace NemLinha_Projeto
                 () => ExecuteTask("Generating more menus", () => { _volumeBarMenu = new VolumeBarMenu();
                     return Task.CompletedTask;
                 }),
-                () => ExecuteTask("Setting the language", () => { _languageManager = new LanguageManager(_settings.Language);
+                () => ExecuteTask("Setting the active language", () => { _languageManager = new LanguageManager(_settings.Language);
                     return Task.CompletedTask;
                 })
                 
@@ -325,7 +325,6 @@ namespace NemLinha_Projeto
                     break;
 
                 case 1:
-                    //ShowColorOptions();
                     _volumeBarMenu.DrawSoundMenu();
                     _settings.SaveSettings();
                     DrawOptionsMenu();
