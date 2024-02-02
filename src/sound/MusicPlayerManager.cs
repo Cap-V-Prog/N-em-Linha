@@ -11,15 +11,14 @@ namespace NemLinha_Projeto
     {
         // Dictionary to store menu names and their corresponding music URLs
         private readonly Dictionary<string, string> _musicUrls = new Dictionary<string, string>();
-        
+
         // Folder to cache downloaded music files
         private const string CacheFolder = "MusicCache";
         
         // NAudio objects for playing audio
         private IWavePlayer _backgroundWaveOutEvent;
-        private WaveStream _backgroundAudioFileReader;
         private DynamicVolumeSampleProvider _dynamicVolumeSampleProvider;
-        private float _backgroundMusicVolume=0f; // Default volume is 100%
+        private float _backgroundMusicVolume; // Default volume is 100%
         
         // Constructor to ensure the cache folder exists
         public MusicPlayerManager(float backgroundMusicDefaultVolume)
@@ -168,8 +167,6 @@ namespace NemLinha_Projeto
         {
             _backgroundWaveOutEvent?.Stop();
             _backgroundWaveOutEvent?.Dispose();
-
-            _backgroundAudioFileReader?.Dispose();
         }
         
         // Get the local file path for a menu's background music

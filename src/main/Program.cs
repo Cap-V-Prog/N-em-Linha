@@ -16,8 +16,10 @@ namespace NemLinha_Projeto
         private static Settings _settings;
         private static Menus _menus;
         private static bool _debugModeEnabled;
+        private static Game currentGame;
         
         public static LanguageManager LanguageManager => _languageManager;
+        
         public static SfxPlayerManager SfXPlayerManager => _sFxPlayerManager;
 
         public static MusicPlayerManager MusicPlayerManager => _musicPlayerManager;
@@ -107,20 +109,12 @@ namespace NemLinha_Projeto
                 switch (selectedIndex)
                 {
                     case 0:
-                        int[,] gameGrid = { 
-                            {1,2,3,4,1}, 
-                            {6,7,2,1,0},
-                            {6,1,8,9,0},
-                            {6,1,8,9,0},
-                            {1,2,1,2,5}, 
-                            {6,1,8,9,0},
-                            {6,1,8,9,0},
-                            {6,1,8,9,0},
-                            {6,1,8,9,0},
-                            {1,2,3,4,5} };
+                        currentGame = new GameSetupMenu().StartGameSetup();
+                        
                         Grid uIgrid = new Grid();
                         Console.Clear();
-                        uIgrid.DisplayGrid(10,5,gameGrid);
+                        uIgrid.DisplayGrid(currentGame.BoardHeight,currentGame.BoardWidth,currentGame.Board);
+                        
                         Console.ReadKey();
                         break;
                     case 1:

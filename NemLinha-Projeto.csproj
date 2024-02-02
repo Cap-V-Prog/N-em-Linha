@@ -75,24 +75,26 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="DynamicVolumeSampleProvider.cs" />
-        <Compile Include="MusicPlayerManager.cs" />
-        <Compile Include="SfxPlayerManager.cs" />
-        <Compile Include="ConsoleLoader.cs" />
-        <Compile Include="Game.cs" />
-        <Compile Include="Grid.cs" />
-        <Compile Include="LanguageManager.cs" />
-        <Compile Include="Menus.cs" />
-        <Compile Include="Player.cs" />
-        <Compile Include="PlayerManager.cs" />
-        <Compile Include="Program.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
-        <Compile Include="Settings.cs" />
-        <Compile Include="VolumeBarMenu.cs" />
+        <Compile Include="src\game\Game.cs" />
+        <Compile Include="src\game\GameManager.cs" />
+        <Compile Include="src\game\GameSetupMenu.cs" />
+        <Compile Include="src\game\Grid.cs" />
+        <Compile Include="src\game\Player.cs" />
+        <Compile Include="src\game\PlayerManager.cs" />
+        <Compile Include="src\main\Program.cs" />
+        <Compile Include="src\main\Settings.cs" />
+        <Compile Include="src\menus\ConsoleLoader.cs" />
+        <Compile Include="src\menus\LanguageManager.cs" />
+        <Compile Include="src\menus\Menus.cs" />
+        <Compile Include="src\menus\VolumeBarMenu.cs" />
+        <Compile Include="src\sound\DynamicVolumeSampleProvider.cs" />
+        <Compile Include="src\sound\MusicPlayerManager.cs" />
+        <Compile Include="src\sound\SfxPlayerManager.cs" />
     </ItemGroup>
     <ItemGroup>
-      <None Include="ico.ico" />
-      <None Include="ico.svg" />
+      <None Include="misc\ico.ico" />
+      <None Include="misc\ico.svg" />
       <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>

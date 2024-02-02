@@ -20,10 +20,12 @@ namespace NemLinha_Projeto
                 {
                     case ConsoleKey.UpArrow:
                         ChangeActiveOption(true); // Cycle through options
+                        Program.SfXPlayerManager.PlaySoundEffect("NavigationMenu");
                         break;
 
                     case ConsoleKey.DownArrow:
                         ChangeActiveOption(false); // Cycle through options
+                        Program.SfXPlayerManager.PlaySoundEffect("NavigationMenu");
                         break;
 
                     case ConsoleKey.LeftArrow:
@@ -40,18 +42,19 @@ namespace NemLinha_Projeto
                 DrawMenu();
 
             } while (keyInfo.Key != ConsoleKey.Escape);
+            Program.SfXPlayerManager.PlaySoundEffect("BackMenu");
         }
         
-        static int _activeOption = 0; // 0 for music, 1 for SFX
+        static int _activeOption; // 0 for music, 1 for SFX
         
         static void DrawMenu()
         {
             Console.Clear();
-
-            Console.WriteLine("=== Volume Menu ===");
+            
+            Console.WriteLine(DrawMenuTitle(Program.LanguageManager.Translate("volume_menu"))+"\n");
             DrawVolumeBar("MUSIC", Program.Settings.MusicVolume, _activeOption == 0);
             DrawVolumeBar("SFX", Program.Settings.SfxVolume, _activeOption == 1);
-            Console.WriteLine("Use Arrow Keys to navigate. Press Esc to exit.");
+            Console.WriteLine("\n"+Program.LanguageManager.Translate("volume_menu_nav"));
         }
 
         static void DrawVolumeBar(string label, float volume, bool isActive)
@@ -63,7 +66,7 @@ namespace NemLinha_Projeto
             }
 
             int percentage = (int)Math.Round(volume * 100);
-            Console.WriteLine($"{label.PadLeft(8)} [{GetVolumeBar(volume)}] {percentage}%");
+            Console.WriteLine($"{label,8} [{GetVolumeBar(volume)}] {percentage}%");
             Console.ResetColor();
         }
 
@@ -101,6 +104,17 @@ namespace NemLinha_Projeto
             string empty = new string('-', emptyLength);
 
             return $"{bar}{empty}";
+        }
+        
+        static private string DrawMenuTitle(string menuTitle)
+        {
+            int borderLength = menuTitle.Length + 10; // Minimum border size
+
+            string middleLine = $"║    {menuTitle.ToUpper()}    ║";
+            string upperLine = $"╔{new string('═', borderLength - 2)}╗";
+            string underLine = $"╚{new string('═', borderLength - 2)}╝";
+            
+            return $"{upperLine}\n{middleLine}\n{underLine}";
         }
     }
 }
