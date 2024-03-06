@@ -56,6 +56,6 @@ For support or feedback, contact mario201santos11@gmail.com.
 
 ## Release Notes
 
-### Version 0.15
+### Version 0.3b
 
 - Game title added
