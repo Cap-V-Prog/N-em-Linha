@@ -3,21 +3,11 @@
     "GameId": 1,
     "NumberOfPlayers": 2,
     "WinningSequence": 1,
+    "SpecialPiecePerPlayer": 0,
     "SpecialPieceSize": 0,
+    "currentPlaying": 1,
     "BoardHeight": 9,
     "BoardWidth": 9,
-    "SelectedPlayerNames": [
-      {
-        "Name": "pedro",
-        "GamesPlayed": 0,
-        "Victories": 0
-      },
-      {
-        "Name": "pixa",
-        "GamesPlayed": 0,
-        "Victories": 0
-      }
-    ],
     "Board": [
       [
         0,
@@ -119,6 +109,757 @@
         0
       ]
     ],
-    "LastModified": "2024-02-02T18:02:02.0361102+00:00"
+    "LastModified": "2024-03-03T19:19:53.1971986+00:00",
+    "PlayersData": [
+      {
+        "Player": {
+          "Name": "4",
+          "GamesPlayed": 0,
+          "Victories": 0
+        },
+        "SpecialPiecesCount": 0
+      },
+      {
+        "Player": {
+          "Name": "6",
+          "GamesPlayed": 0,
+          "Victories": 0
+        },
+        "SpecialPiecesCount": 0
+      }
+    ]
+  },
+  {
+    "GameId": 2,
+    "NumberOfPlayers": 2,
+    "WinningSequence": 5,
+    "SpecialPiecePerPlayer": 2,
+    "SpecialPieceSize": 3,
+    "currentPlaying": 1,
+    "BoardHeight": 13,
+    "BoardWidth": 12,
+    "Board": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "LastModified": "2024-03-05T21:39:55.7042145+00:00",
+    "PlayersData": [
+      {
+        "Player": {
+          "Name": "4",
+          "GamesPlayed": 0,
+          "Victories": 0
+        },
+        "SpecialPiecesCount": -16
+      },
+      {
+        "Player": {
+          "Name": "6",
+          "GamesPlayed": 0,
+          "Victories": 0
+        },
+        "SpecialPiecesCount": -16
+      }
+    ]
+  },
+  {
+    "GameId": 3,
+    "NumberOfPlayers": 2,
+    "WinningSequence": 5,
+    "SpecialPiecePerPlayer": 2,
+    "SpecialPieceSize": 3,
+    "currentPlaying": 1,
+    "BoardHeight": 9,
+    "BoardWidth": 9,
+    "Board": [
+      [
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1
+      ],
+      [
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2
+      ],
+      [
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1
+      ],
+      [
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2
+      ],
+      [
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1
+      ],
+      [
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2
+      ],
+      [
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1
+      ],
+      [
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2
+      ],
+      [
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1
+      ]
+    ],
+    "LastModified": "2024-03-05T19:31:01.1708335+00:00",
+    "PlayersData": [
+      {
+        "Player": {
+          "Name": "4",
+          "GamesPlayed": 0,
+          "Victories": 0
+        },
+        "SpecialPiecesCount": -12
+      },
+      {
+        "Player": {
+          "Name": "6",
+          "GamesPlayed": 0,
+          "Victories": 0
+        },
+        "SpecialPiecesCount": -12
+      }
+    ]
+  },
+  {
+    "GameId": 4,
+    "NumberOfPlayers": 2,
+    "WinningSequence": 3,
+    "SpecialPiecePerPlayer": 54,
+    "SpecialPieceSize": 2,
+    "currentPlaying": 1,
+    "BoardHeight": 9,
+    "BoardWidth": 9,
+    "Board": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "LastModified": "2024-03-05T21:39:39.4526624+00:00",
+    "PlayersData": [
+      {
+        "Player": {
+          "Name": "4",
+          "GamesPlayed": 0,
+          "Victories": 0
+        },
+        "SpecialPiecesCount": 0
+      },
+      {
+        "Player": {
+          "Name": "6",
+          "GamesPlayed": 0,
+          "Victories": 0
+        },
+        "SpecialPiecesCount": 0
+      }
+    ]
+  },
+  {
+    "GameId": 5,
+    "NumberOfPlayers": 2,
+    "WinningSequence": 5,
+    "SpecialPiecePerPlayer": 3,
+    "SpecialPieceSize": 2,
+    "currentPlaying": 1,
+    "BoardHeight": 9,
+    "BoardWidth": 9,
+    "Board": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "LastModified": "2024-03-05T21:40:09.698087+00:00",
+    "PlayersData": [
+      {
+        "Player": {
+          "Name": "4",
+          "GamesPlayed": 0,
+          "Victories": 0
+        },
+        "SpecialPiecesCount": 0
+      },
+      {
+        "Player": {
+          "Name": "6",
+          "GamesPlayed": 0,
+          "Victories": 0
+        },
+        "SpecialPiecesCount": 0
+      }
+    ]
+  },
+  {
+    "GameId": 6,
+    "NumberOfPlayers": 2,
+    "WinningSequence": 5,
+    "SpecialPiecePerPlayer": 55,
+    "SpecialPieceSize": 3,
+    "currentPlaying": 1,
+    "BoardHeight": 9,
+    "BoardWidth": 9,
+    "Board": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "LastModified": "2024-03-06T17:24:19.10559+00:00",
+    "PlayersData": [
+      {
+        "Player": {
+          "Name": "4",
+          "GamesPlayed": 0,
+          "Victories": 0
+        },
+        "SpecialPiecesCount": 55
+      },
+      {
+        "Player": {
+          "Name": "6",
+          "GamesPlayed": 0,
+          "Victories": 0
+        },
+        "SpecialPiecesCount": 55
+      }
+    ]
   }
 ]

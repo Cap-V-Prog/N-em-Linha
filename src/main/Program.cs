@@ -2,13 +2,14 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace NemLinha_Projeto
 {
     class Program
     {
         private static LanguageManager _languageManager;
-        private const string GameVersion = "V0.221b";
+        private const string GameVersion = "V0.3b";
         public const string GameTitle="\n \u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2557   \u2588\u2588\u2557\u2588\u2588\u2588\u2557   \u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557    \u2588\u2588\u2557  \u2588\u2588\u2557\n\u2588\u2588\u2554\u2550\u2550\u2550\u2550\u255d\u2588\u2588\u2554\u2550\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2557  \u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2557  \u2588\u2588\u2551\u2588\u2588\u2554\u2550\u2550\u2550\u2550\u255d\u2588\u2588\u2554\u2550\u2550\u2550\u2550\u255d\u255a\u2550\u2550\u2588\u2588\u2554\u2550\u2550\u255d    \u2588\u2588\u2551  \u2588\u2588\u2551\n\u2588\u2588\u2551     \u2588\u2588\u2551   \u2588\u2588\u2551\u2588\u2588\u2554\u2588\u2588\u2557 \u2588\u2588\u2551\u2588\u2588\u2554\u2588\u2588\u2557 \u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2588\u2557  \u2588\u2588\u2551        \u2588\u2588\u2551       \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2551\n\u2588\u2588\u2551     \u2588\u2588\u2551   \u2588\u2588\u2551\u2588\u2588\u2551\u255a\u2588\u2588\u2557\u2588\u2588\u2551\u2588\u2588\u2551\u255a\u2588\u2588\u2557\u2588\u2588\u2551\u2588\u2588\u2554\u2550\u2550\u255d  \u2588\u2588\u2551        \u2588\u2588\u2551       \u255a\u2550\u2550\u2550\u2550\u2588\u2588\u2551\n\u255a\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u255a\u2588\u2588\u2588\u2588\u2588\u2588\u2554\u255d\u2588\u2588\u2551 \u255a\u2588\u2588\u2588\u2588\u2551\u2588\u2588\u2551 \u255a\u2588\u2588\u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u255a\u2588\u2588\u2588\u2588\u2588\u2588\u2557   \u2588\u2588\u2551            \u2588\u2588\u2551\n \u255a\u2550\u2550\u2550\u2550\u2550\u255d \u255a\u2550\u2550\u2550\u2550\u2550\u255d \u255a\u2550\u255d  \u255a\u2550\u2550\u2550\u255d\u255a\u2550\u255d  \u255a\u2550\u2550\u2550\u255d\u255a\u2550\u2550\u2550\u2550\u2550\u2550\u255d \u255a\u2550\u2550\u2550\u2550\u2550\u255d   \u255a\u2550\u255d            \u255a\u2550\u255d\n"+GameVersion+"                                                                          \n"; 
         private static SfxPlayerManager _sFxPlayerManager;
         private static MusicPlayerManager _musicPlayerManager;
@@ -16,7 +17,7 @@ namespace NemLinha_Projeto
         private static Settings _settings;
         private static Menus _menus;
         private static bool _debugModeEnabled;
-        private static Game currentGame;
+        private static Game _currentGame;
         
         public static LanguageManager LanguageManager => _languageManager;
         
@@ -85,7 +86,7 @@ namespace NemLinha_Projeto
             DrawMainMenu();
         }
 
-        static void DrawMainMenu()
+        public static void DrawMainMenu()
         {
             _musicPlayerManager.StopMusic();
             _musicPlayerManager.PlayMusic("MainMenu");
@@ -98,7 +99,7 @@ namespace NemLinha_Projeto
                 LanguageManager.Translate("credits"),
                 LanguageManager.Translate("exit") };
             int selectedIndex = _menus.ShowMenu(menuOptions,LanguageManager.Translate("main_menu"),0,_debugModeEnabled?$"Current music volume: {_settings.MusicVolume}\nCurrent SFX volume: {_settings.SfxVolume}":null,true,-1,GameTitle);
-
+            
             if (selectedIndex == menuOptions.Length - 1)
             {
                 CloseProgram();
@@ -109,15 +110,28 @@ namespace NemLinha_Projeto
                 switch (selectedIndex)
                 {
                     case 0:
-                        currentGame = new GameSetupMenu().StartGameSetup();
-                        
-                        Grid uIgrid = new Grid();
+                        _currentGame = new GameSetupMenu().StartGameSetup();
+                        if (_currentGame == null)
+                        {
+                            Console.Clear();
+                            break;
+                        }
                         Console.Clear();
-                        uIgrid.DisplayGrid(currentGame.BoardHeight,currentGame.BoardWidth,currentGame.Board);
+                        GameScreen.DrawGameScreen(_currentGame);
+
                         
                         Console.ReadKey();
                         break;
                     case 1:
+
+                        _currentGame=LoadGameMenu.DisplayMenu();
+                        if (_currentGame == null)
+                        {
+                            Console.Clear();
+                            break;
+                        }
+                        GameScreen.DrawGameScreen(_currentGame);
+                        
                         break;
                     case 2:
                         DrawPlayerMenu();
@@ -134,10 +148,11 @@ namespace NemLinha_Projeto
                         break;
                         
                 }
+                DrawMainMenu();
             }
         }
 
-        static void DrawPlayerMenu()
+        public static void DrawPlayerMenu()
         {
             string[] pMenuOptions = { _languageManager.Translate("new_player"),
                 _languageManager.Translate("list_all"),

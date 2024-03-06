@@ -4,7 +4,7 @@ namespace NemLinha_Projeto
 {
     public class Player
     {
-        public string Name { get; set; }
+        public string Name { get;}
         public int GamesPlayed { get; set; }
         public int Victories { get; set; }
         

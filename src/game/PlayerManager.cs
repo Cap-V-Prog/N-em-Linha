@@ -78,6 +78,12 @@ namespace NemLinha_Projeto
             return languageManager.Translate("player_not_found",playerName);
         }
         
+        public static int GetNumberOfPlayers()
+        {
+            List<Player> allPlayers = LoadPlayers();
+            return allPlayers.Count;
+        }
+        
         public static string[] ListAllPlayerNames()
         {
             List<Player> allPlayers = LoadPlayers();

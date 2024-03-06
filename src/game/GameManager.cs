@@ -25,10 +25,8 @@ namespace NemLinha_Projeto
                 string json = File.ReadAllText(FilePath);
                 return JsonConvert.DeserializeObject<List<Game>>(json);
             }
-            else
-            {
-                return new List<Game>();
-            }
+
+            return new List<Game>();
         }
 
         public static bool AddGame(Game newGame)
@@ -75,6 +73,19 @@ namespace NemLinha_Projeto
             }
 
             return false;
+        }
+        
+        public static void ResetBoard(int gameId)
+        {
+            List<Game> allGames = LoadGames();
+            Game gameToReset = allGames.Find(game => game.GameId == gameId);
+
+            if (gameToReset != null)
+            {
+                gameToReset.ResetBoard();
+                gameToReset.LastModified = DateTime.Now;
+                SaveGames(allGames);
+            }
         }
     }
 }

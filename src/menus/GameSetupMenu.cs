@@ -12,7 +12,8 @@ namespace NemLinha_Projeto
         private int boardHeight = 9; // Default board height
         private int boardWidth = 9;  // Default board width
         private int winningSequence = 1; // Default winning sequence
-        private int specialPieceSize; // New property for special piece size
+        private int specialPieceSize=0; // Default special peice size
+        private int specialPiecesPerPlayer = 0; //Default special piece quantity
 
         public Game StartGameSetup()
         {
@@ -20,14 +21,14 @@ namespace NemLinha_Projeto
             Console.WriteLine("Welcome to Game Setup!");
 
             Game newGame = ConfigureGame();
-
-            selectedPlayers.Sort((p1, p2) => string.Compare(p1.Name, p2.Name));
-
+            if (newGame == null)  return null;
+            
             // Display final setup
             Console.Clear();
             Console.WriteLine("Game Setup Complete:");
             Console.WriteLine($"Board Size: {boardHeight}x{boardWidth}");
             Console.WriteLine($"Winning Sequence: {newGame.WinningSequence}");
+            Console.WriteLine($"Special Piece per Player: {newGame.SpecialPiecePerPlayer}");
             Console.WriteLine($"Special Piece Size: {newGame.SpecialPieceSize}");
             Console.WriteLine("Selected Players:");
 
@@ -50,15 +51,7 @@ namespace NemLinha_Projeto
         {
             Console.Clear();
             Console.WriteLine("Use arrow keys to navigate, press Enter to select or modify options:");
-
-            string[] options = {
-                $"Number of Players: {numberOfPlayers}",
-                $"Board Size: {boardHeight}x{boardWidth}",
-                $"Winning Sequence: {winningSequence}",
-                $"Special Piece Size: {specialPieceSize}",
-                "Select Players",
-                "Continue"
-            };
+            string[] options = UpdateOptions();
 
             int selectedIndex = 0;
 
@@ -73,6 +66,14 @@ namespace NemLinha_Projeto
                     {
                         Console.BackgroundColor = ConsoleColor.Gray;
                         Console.ForegroundColor = ConsoleColor.Black;
+                        if (options.Length - 1 == selectedIndex)
+                        {
+                            Console.BackgroundColor = ConsoleColor.Red;
+                        }
+                        if (options.Length - 2 == selectedIndex)
+                        {
+                            Console.BackgroundColor = ConsoleColor.Green;
+                        }
                     }
 
                     Console.WriteLine(options[i]);
@@ -82,13 +83,21 @@ namespace NemLinha_Projeto
 
                 key = Console.ReadKey();
 
-                if (key.Key == ConsoleKey.UpArrow && selectedIndex > 0)
+                if (key.Key == ConsoleKey.UpArrow)
                 {
                     selectedIndex--;
+                    if (selectedIndex<0)
+                    {
+                        selectedIndex = options.Length-1;
+                    }
                 }
-                else if (key.Key == ConsoleKey.DownArrow && selectedIndex < options.Length - 1)
+                else if (key.Key == ConsoleKey.DownArrow)
                 {
                     selectedIndex++;
+                    if (selectedIndex>options.Length - 1)
+                    {
+                        selectedIndex = 0;
+                    }
                 }
                 else if (key.Key == ConsoleKey.Enter)
                 {
@@ -113,7 +122,7 @@ namespace NemLinha_Projeto
                         selectedPlayers.Clear();
                     }
 
-                    if (selectedIndex == options.Length - 1)
+                    if (selectedIndex == options.Length - 2)
                     {
                         // Check if at least 2 players are selected before allowing "Continue"
                         if (selectedPlayers.Count != numberOfPlayers)
@@ -128,13 +137,26 @@ namespace NemLinha_Projeto
                         }
                     }
 
+                    if (selectedIndex == options.Length - 1)
+                    {
+                        Program.DrawMainMenu();
+                    }
+
                     options = UpdateOptions();
                 }
 
-            } while (key.Key != ConsoleKey.Escape);
+            } while (true);
+            
+            selectedPlayers.Sort((p1, p2) => String.CompareOrdinal(p1.Name, p2.Name));
 
+            List<GamePlayer> playersData = new List<GamePlayer>();
+            
+            foreach (var player in selectedPlayers)
+            {
+                playersData.Add(new GamePlayer(player, specialPiecesPerPlayer));
+            }
             // Create a new Game object with the setup information
-            Game newGame = new Game(0, numberOfPlayers, winningSequence, specialPieceSize, selectedPlayers, boardHeight, boardWidth, DateTime.Now);
+            Game newGame = new Game(0, numberOfPlayers, winningSequence, specialPiecesPerPlayer,specialPieceSize, playersData, boardHeight, boardWidth, DateTime.Now);
 
             return newGame;
         }
@@ -145,7 +167,7 @@ namespace NemLinha_Projeto
             {
                 case 0:
                     Console.Write("\nEnter the number of players (should be greater than 2): ");
-                    numberOfPlayers = GetIntInput(minValue: 2);
+                    //numberOfPlayers = GetIntInput(minValue: 2); Removed becouse current only 2 players can play
                     break;
 
                 case 1:
@@ -158,17 +180,28 @@ namespace NemLinha_Projeto
                     // Ensure winning sequence is not greater than board size
                     winningSequence = Math.Min(winningSequence, Math.Min(boardHeight, boardWidth));
                     break;
-
+                
                 case 3:
+                    Console.Write("\nEnter the special pieces quantity per player: ");
+                    specialPiecesPerPlayer = GetIntInput(minValue: 0);
+                    break;
+
+                case 4:
                     Console.Write("\nEnter the special piece size: ");
                     specialPieceSize = GetIntInput(minValue: 1);
                     // Ensure special piece size is not greater than winning sequence and not greater than board size
                     specialPieceSize = Math.Min(specialPieceSize, Math.Min(winningSequence, Math.Min(boardHeight, boardWidth)));
                     break;
 
-                case 4:
+                case 5:
                     if (numberOfPlayers >= 2)
-                        SelectPlayers();
+                    {
+                        if (!SelectPlayers())
+                        {
+                            Console.Clear();
+                            Program.DrawPlayerMenu();
+                        }
+                    }
                     else
                     {
                         Console.WriteLine("\nPlease set the number of players to be greater than 2 first.");
@@ -193,17 +226,33 @@ namespace NemLinha_Projeto
                 $"Number of Players: {numberOfPlayers}",
                 $"Board Size: {boardHeight}x{boardWidth}",
                 $"Winning Sequence: {winningSequence}",
+                $"Special Piece quantity per player: {specialPiecesPerPlayer}",
                 $"Special Piece Size: {specialPieceSize}",
                 "Select Players",
-                "Continue"
+                "\nContinue -->",
+                "\n\nExit"
             };
         }
 
-        private void SelectPlayers()
+        private bool SelectPlayers()
         {
             Console.Clear();
+            // Check if there are any players registered
+            if (PlayerManager.GetNumberOfPlayers() == 0)
+            {
+                Console.WriteLine("No players registered. Please register players before setting up the game.");
+                Console.ReadKey();
+                return false;
+            }else
+            if(PlayerManager.GetNumberOfPlayers()<numberOfPlayers)
+            {
+                Console.WriteLine("Not enouth players registered. Please register more players before setting up the game.");
+                Console.ReadKey();
+                return false;
+            }
+            
             Console.WriteLine("Use arrow keys to navigate, press Enter to select or deselect options.");
-
+            
             int selectedCount = 0;
             ConsoleKeyInfo key;
 
@@ -288,6 +337,8 @@ namespace NemLinha_Projeto
                 }
 
             } while (key.Key != ConsoleKey.Escape && selectedCount < numberOfPlayers);
+
+            return true;
         }
 
         private int GetIntInput(int minValue)

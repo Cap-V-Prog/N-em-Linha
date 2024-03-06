@@ -77,15 +77,18 @@
     <ItemGroup>
         <Compile Include="Properties\AssemblyInfo.cs"/>
         <Compile Include="src\game\Game.cs" />
+        <Compile Include="src\game\GameLogic.cs" />
         <Compile Include="src\game\GameManager.cs" />
-        <Compile Include="src\game\GameSetupMenu.cs" />
+        <Compile Include="src\game\GameScreen.cs" />
         <Compile Include="src\game\Grid.cs" />
         <Compile Include="src\game\Player.cs" />
         <Compile Include="src\game\PlayerManager.cs" />
         <Compile Include="src\main\Program.cs" />
         <Compile Include="src\main\Settings.cs" />
         <Compile Include="src\menus\ConsoleLoader.cs" />
+        <Compile Include="src\menus\GameSetupMenu.cs" />
         <Compile Include="src\menus\LanguageManager.cs" />
+        <Compile Include="src\menus\LoadGameMenu.cs" />
         <Compile Include="src\menus\Menus.cs" />
         <Compile Include="src\menus\VolumeBarMenu.cs" />
         <Compile Include="src\sound\DynamicVolumeSampleProvider.cs" />
@@ -93,7 +96,7 @@
         <Compile Include="src\sound\SfxPlayerManager.cs" />
     </ItemGroup>
     <ItemGroup>
-      <None Include="misc\ico.ico" />
+      <None Include="ico.ico" />
       <None Include="misc\ico.svg" />
       <None Include="packages.config" />
     </ItemGroup>
